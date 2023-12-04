@@ -1,0 +1,30 @@
+div#organigrama { background: url(/image/background/back_organigrama-01.jpg); background-size: cover; background-repeat: no-repeat; }
+.divisions { padding-top: 70px; }
+.container-division { 
+    min-height: 420px; 
+    background: white; 
+    margin-left: auto; 
+    margin-right: auto; 
+    display: table; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    -webkit-box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%); 
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%); 
+    margin-bottom: 50px; 
+}
+.container-division .title { 
+    margin: 0 auto; 
+    display: table; 
+    background: #3f5465; 
+    text-align: center; 
+    color: white; 
+    border-radius: 6px; 
+    padding: 5px 10px; 
+    margin-top: -27px; 
+    position: relative; 
+    font-family: 'Gotham-Bold'; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    font-size: 16px; 
+    line-height: 19px; 
+}

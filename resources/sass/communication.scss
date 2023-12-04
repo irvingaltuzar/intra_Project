@@ -1,0 +1,44 @@
+.content-section .title-page { margin-bottom: 70px; }
+.card .title { padding: 13px 40px; border-radius: 10px; font-family: 'Gotham-Bold'; color: white; text-transform: uppercase; font-size: 24px; letter-spacing: 2px; position: relative; margin-top: -70px; }
+.card .form-check { width: 100%; position: relative; }
+.content { width: 80%; margin-left: auto; margin-right: auto; margin-top: 30px; font-family: 'Gotham-Light'; }
+table { width: 100%; }
+.actions { width: 93px; padding: 10px; text-align: center; }
+.form-check-input[type=checkbox] { position: relative; top: -3px; border: 1px solid rgba(0,0,0,.35); }
+.form-check-label { padding: 0px 13px; cursor: pointer; }
+.form-check-input[type=checkbox] { cursor: pointer; }
+.card .actions button { background: transparent; border: none; color: #9c27b0; }
+.card .actions .delete { color: #f44336!important; }
+
+.container-checkbox input { z-index: 2; opacity: 0; }
+.checkmark { position: absolute; top: 0; left: 0; height: 18px; width: 18px; background-color: transparent; border: 1px solid rgba(0,0,0,.54); border-radius: 3px; }
+/*.container-checkbox:hover input ~ .checkmark { background-color: #ccc; }*/
+.container-checkbox input:checked ~ .checkmark { background-color: #3f5465; }
+.checkmark:after { content: ""; position: absolute; display: none; }
+.container-checkbox input:checked ~ .checkmark:after { display: block; }
+.container-checkbox .checkmark:after { left: 6px; top: 2px; width: 5px; height: 10px; border: solid white; border-width: 0 3px 3px 0; -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); }
+
+.campaign .image { background-color: #e2e1df; padding: 20px; margin-bottom: 20px; }
+.campaign { font-family: 'Gotham-Light'; font-size: 17px; }
+.carousel-campaigns { padding: 40px 40px 0px; }
+.carousel-campaigns .owl-nav.disabled { display: initial !important; }
+.carousel-campaigns .owl-prev, .carousel-campaigns .owl-next { position: absolute; top: 50%; -webkit-transform: translateY(-50%); }
+.carousel-campaigns i { color: #e2e1df; font-size: 26px; }
+.carousel-campaigns .owl-prev { left: -35px; }
+.carousel-campaigns .owl-next { right: -35px; }
+.card:last-child { margin-bottom: 150px; }
+
+@media screen and (max-width: 991px){
+	.content { width: 90%; }
+	.card .title { text-align: center; letter-spacing: 1px; }
+}
+
+@media screen and (max-width: 500px){
+	.carousel-campaigns { padding: 40px 10px 0px; }
+}
+
+@media screen and (max-width: 400px){
+	.content { width: 100%; }
+	.card .title { padding: 13px; font-size: 18px; }
+	.actions { width: 50px; }
+}

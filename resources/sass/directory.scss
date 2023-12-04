@@ -1,0 +1,11 @@
+.content-table { font-family: 'Gotham-Light'; }
+.content-table table thead { font-family: 'Gotham-Light'; font-weight: unset; color: #ff9800!important; }
+.table>:not(:first-child) { border-top: initial; }
+.table>:not(caption)>*>* { padding: 1.3rem 0.5rem; }
+.title { position: relative; -webkit-box-shadow: 0 12px 20px -10px rgb(255 152 0 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(255 152 0 / 20%); box-shadow: 0 12px 20px -10px rgb(255 152 0 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(255 152 0 / 20%); background: linear-gradient(60deg,#ffa726,#fb8c00); border-radius: 3px; padding: 15px; margin-left: 25px; margin-bottom: -50px; display: table; color: white; z-index: 2; }
+.title span { font-size: 23px; }
+.content-table .information { position: relative; -webkit-box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%); box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%); border-radius: 6px; background: #fff; padding: 60px 20px 10px; }
+table.table tbody tr:last-child, table.table tbody tr:last-child td { border: none; }
+table, tbody { border: none !important; }
+th, td { border-color: #ddd!important; }
+.content-table { background: #eee; padding: 15px; margin-bottom: 100px; margin-top: 70px; }

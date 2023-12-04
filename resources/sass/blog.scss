@@ -1,0 +1,29 @@
+ul.nav.nav-tabs { margin-bottom: 40px; border: none; -webkit-box-shadow: unset; box-shadow: unset; border-radius: unset; color: #333; background: unset; padding: 0px 40px 40px; }
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active { color: white; background-color: #00aeef!important; }
+.responsive-tabs .tab-content>.active .card-header, .responsive-tabs .tab-content>.active .card-header a, .responsive-tabs .tab-content>.active .card-header h5 { color: white; background-color: #00aeef!important; }
+.responsive-tabs .card { padding: 0px !important; -webkit-box-shadow: unset !important; box-shadow: unset !important; background: transparent !important; border: none !important; }
+.content-section .content { background: transparent; -webkit-box-shadow: unset !important; box-shadow: unset !important; }
+.card-body .content:before { display: none; }
+.card .date { padding: 7px 49px; border-radius: 10px; font-family: 'Gotham-Bold'; color: white; text-transform: uppercase; font-size: 24px; letter-spacing: 2px; position: relative; margin-top: -65px; background: #3f5465; display: table; }
+.card-body .content { padding-left: 0px; padding-right: 0px; }
+
+article { margin-bottom: 70px; font-size: 17px; font-family: 'Gotham-Light'; padding: 40px; background-color: white; -webkit-box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%); box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%); border-radius: 10px; }
+article:last-child { margin-bottom: 0px; }
+article .content-article { margin-top: 20px; }
+article .photo img { border-radius: 100%; border: 3px solid #e0e1e2; margin: 0 auto; display: table; }
+article .title { color: #6d6e71; font-size: 23px; text-transform: unset; letter-spacing: 0px; }
+article .read-more { color: #00aeef; margin-top: 12px; display: block; text-decoration: none; }
+article .read-more:hover { text-decoration: underline; }
+
+@media screen and (max-width: 991px){
+	.card .date { margin-left: auto; margin-right: auto; text-align: center; }
+}
+
+@media screen and (max-width: 767px){
+	article .photo { margin-bottom: 20px; }
+	.content-section:not(.content-development):not(.special-tab) .card { margin-bottom: 0px; }
+}
+
+@media screen and (max-width: 450px){
+	.card .date { font-size: 21px; width: 100%; padding: 7px 20px; }
+}

@@ -1,0 +1,11 @@
+header#intranet-menu .hamburguer span { background: #3f5465; }
+header#intranet-menu svg#GDMI-logo .st0 { fill: #3f5465 !important; }
+header#intranet-menu:not(.open) .icon { -webkit-filter: unset; filter: unset; }
+header#intranet-menu .hamburguer span, header#intranet-menu svg#GDMI-logo .st0, header#intranet-menu .icon, header#intranet-menu .name-user { -webkit-transition: 0.5s all; transition: 0.5s all; }
+header#intranet-menu .name-user { color: #3f5465; font-weight: 600; }
+
+header#intranet-menu.open .hamburguer span { background: #ffffff; }
+header#intranet-menu.open svg#GDMI-logo .st0 { fill: #ffffff !important; }
+header#intranet-menu.open .name-user { color: #ffffff; font-weight: 600; }
+
+header#intranet-menu.scrolled { background: #f3f5f4; }

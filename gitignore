@@ -1,0 +1,23 @@
+vendor/
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Laravel 4 specific
+bootstrap/compiled.php
+
+# Laravel 5 & Lumen specific
+public/hot
+.env
+Homestead.yaml
+Homestead.json
+/.vagrant
+.phpunit.result.cache
+storage/logs/laravel.log
+storage/logs/laravel.log
+
+/public/storage/locations
+/storage/app/public/locations
+/storage/app/public/project_dmi
+/public/storage/project_dmi
+/public/image

@@ -1,0 +1,55 @@
+footer { 
+	position: relative; 
+}
+footer ul {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+	text-align: center;
+}
+
+footer ul li {
+	display: inline-block;
+	padding: 10px 20px;
+	color: white;
+	opacity: 0.47;
+	font-family: Gotham-Light;
+	font-synthesis: 15px;
+}
+
+footer a {
+	color: white;
+	text-decoration: none;
+}
+
+footer a:hover {
+	color: white;
+	text-decoration: underline;
+}
+
+footer a.email-support {
+	padding-left: 13px;
+}
+
+@media screen and (max-width: 1150px) {
+	footer ul li {
+		display: block;
+		padding: 0px 20px;
+	}
+
+	footer {
+		position: relative !important;
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	footer span.ti {
+		display: block;
+	}
+
+	footer span.ti span {
+		display: none;
+	}
+}

@@ -1,0 +1,18 @@
+.menu { 
+    background: url(/image/background/back_pattern-01.jpg); 
+    background-size: cover; 
+ }
+
+.person {
+    margin-top: 15px;
+    border-radius: 100%;
+    background: #fff;
+    max-width: 100px;
+}
+.menu a{
+    color:#fff !important;
+}
+.menu ul a:hover { border-bottom: 3px solid #00aeef; }
+.menu a.active{
+	border-bottom: 3px solid #fff
+}

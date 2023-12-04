@@ -1,0 +1,90 @@
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active { color: white; background-color: #00aeef!important; }
+.nav-tabs .nav-link { font-size: 13px; padding: 0.5rem 0.5rem; }
+
+.carousel-indicators [data-bs-target] { text-indent: unset; }
+.card-event { width: calc(100% / 3); padding: 15px; }
+.content-card { box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%); padding: 30px; text-align: center; height: 100%; }
+.carousel { padding-bottom: 70px; }
+.empty { text-align: center; font-family: 'Gotham-Bold'; margin: 40px 0px; }
+
+.card-event .photo { position: relative; margin-bottom: 20px; margin-left: auto; margin-right: auto; display: table; }
+.card-event .photo img.person { border-radius: 100%; border: 3px solid #e0e1e2; margin: 0 auto; display: table; width: 100%;}
+.card-event .comments-icon { width: 50px; height: 50px; position: absolute; bottom: 0px; right: 0px; }mments-icon { right: unset; bottom: -10px; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); }
+.card-event .name { font-family: 'Gotham-Bold'; color: #3f5465; text-transform: uppercase; font-size: 12px; line-height: 15px; }
+.card-event .job { font-family: 'Gotham-Light'; color: black; text-transform: uppercase; font-size: 11px; line-height: 15px; margin-top: 5px; margin-bottom: 5px; font-weight: 600; }
+.card-event .date { font-family: 'Gotham-Light'; color: #00aeef; text-transform: uppercase; font-size: 12px; line-height: 15px; margin-bottom: 20px; }
+
+.carousel-indicators button { width: auto !important; height: auto !important; margin: 0px 5px !important; border: none !important; padding: 3px 13px !important; text-transform: uppercase; font-family: 'Gotham-Bold'; border-radius: 10px; }
+.carousel-indicators button.active { background: #00aeef; color: white; }
+
+.content-births .card-event, 
+.content-condolences .card-event, 
+.content-new-staff .card-event, 
+.content-anniversaries .card-event 
+{ width: 80%; text-align: left; }
+.content-births .card-event .content-card { background: #d2e6eb; }
+.content-births .content-card.girl { background: #f0d7de; }
+.content-births .card-event .date { color: black; }
+.content-births .card-event .content-card { text-align: left; }
+.content-births .card-event .development { margin-top: 20px; }
+.card-event .title { color: white; font-family: 'Gotham-Bold'; font-size: 23px; letter-spacing: 2px; }
+.card-event .title span { font-size: 13px; letter-spacing: 1px; }
+.card-event .text-card { text-align: justify; font-size: 14px; }
+
+.content-condolences .card-event .title, 
+.content-condolences .card-event .name, 
+.content-condolences .card-event .job, 
+.content-condolences .text-start,
+.content-condolences .card-event .text-card{ color: #fff;}
+.content-new-staff .card-event .title,
+.content-anniversaries .card-event .title { color: #9b9da0; }
+.image-girl-boy { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0%, #000 15%, #000 50%, #000 63%, transparent 94%); }
+.image-girl-boy img { margin-left: -18px; -webkit-mask-image: -webkit-linear-gradient(top, transparent 0%, #000 15%, #000 50%, #000 85%, transparent 100%); }
+
+@media screen and (max-width: 1440px){
+	.card-event .comments-icon { right: 25px; }
+}
+
+@media screen and (max-width: 991px){
+	#carouselNewStaff .content-card{
+		background: transparent !important;
+	}
+	
+	#carouselAnniversaries .content-card{
+		background: transparent !important;
+	}
+	.carousel-indicators { display: table; bottom: unset; top: calc(100% - 50px); width: 500px; text-align: center; margin: 0px auto; }
+}
+
+@media screen and (max-width: 767px){
+	.card-event .comments-icon { right: unset; bottom: -10px; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); }
+	.content-birthday .card-event, .content-promotions .card-event { width: 50%; }
+	.carousel-indicators { width: 300px; top: calc(100% - 70px); }
+}
+
+
+@media screen and (max-width: 600px){
+	.card-event { width: 100% !important; }
+	.carousel-indicators { width: calc(100% + 40px); margin-left: -20px; }
+	.carousel-indicators button { margin: 0px !important; }
+	.responsive-tabs .card-body .content { padding-left: 20px; padding-right: 20px; }
+	.content-new-staff .card-event .title { font-size: 18px; }
+}
+#carouselCondolence .content-card{
+	background-color: #000;
+}
+#carouselNewStaff .text-start{
+	color: #000 !important;
+}
+#carouselNewStaff .message{
+	color: #000 !important;
+	font-weight: 600;
+}
+
+#carouselAnniversaries .text-start{
+	color: #000 !important;
+}
+#carouselAnniversaries .message{
+	color: #000 !important;
+	font-weight: 600;
+}

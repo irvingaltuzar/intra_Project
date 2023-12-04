@@ -1,0 +1,34 @@
+.content-profile { background: #eee; padding: 14px 15px; margin-bottom: 100px; margin-top: 70px; }
+.panel { font-size: 17px; font-family: 'Gotham-Light'; padding: 40px; background-color: white; -webkit-box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%); box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%); border-radius: 6px; position: relative; }
+.card-icon { position: relative; top: -10px; -webkit-box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%); box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%); background: linear-gradient(60deg,#66bb6a,#43a047); border-radius: 3px; background-color: #999; padding: 15px; margin-top: -20px; margin-right: 15px; float: left; color: white; }
+.card-icon i { width: 33px; height: 33px; text-align: center; line-height: 33px; }
+.title { font-size: 23px; margin-top: -25px; }
+form { padding-top: 30px; }
+form label { font-size: 15px; }
+.form-control { padding-left: 0px; outline: none !important; box-shadow: none !important; border-radius: 0px; border: none; border-bottom: 1px solid #d2d2d2; margin-bottom: 20px; }
+textarea.form-control { padding: 5px 16px; }
+input[type=submit], a.follow { -webkit-transition: background-color .2s cubic-bezier(.4,0,.2,1),-webkit-box-shadow .2s cubic-bezier(.4,0,1,1); transition: background-color .2s cubic-bezier(.4,0,.2,1),-webkit-box-shadow .2s cubic-bezier(.4,0,1,1); transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1); transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),-webkit-box-shadow .2s cubic-bezier(.4,0,1,1); text-decoration: none; -webkit-box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%); box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%); background: #66bb6a; border-radius: 3px; padding: 12px 20px; margin-top: 30px; margin-left: auto; color: white; display: table; border: none; font-size: 15px; }
+.photo { position: relative; margin-bottom: 30px; margin-left: auto; margin-right: auto; display: table; margin-top: -80px; }
+.photo img { border-radius: 100%; margin: 0 auto; display: table; -webkit-box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%); box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%); }
+.content-profile .user-info { text-align: center; }
+.content-profile p.job { font-size: 14px; }
+.content-profile p.name { font-size: 20px; }
+a.follow { margin-right: auto; border-radius: 50px; padding: 12px 30px; }
+input[type=submit]:hover, a.follow:hover { -webkit-box-shadow: 0 14px 26px -12px rgb(76 175 80 / 42%), 0 4px 23px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(76 175 80 / 20%); box-shadow: 0 14px 26px -12px rgb(76 175 80 / 42%), 0 4px 23px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(76 175 80 / 20%); background-color: #47a44b!important;}
+
+@media screen and (max-width: 991px){
+	.panel { margin-bottom: 50px; }
+	.content-profile { padding-bottom: 0px; }
+}
+
+@media screen and (max-width: 767px){
+	.title { margin-top: unset; }
+	.card-icon { float: none; margin-left: auto; margin-right: auto; display: table; top: unset; margin-top: -60px; margin-bottom: 15px; }
+}
+label{
+	font-size: 12px;
+	font-weight: 700;
+}
+.person{
+	background: #fff;
+}

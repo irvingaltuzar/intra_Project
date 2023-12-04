@@ -1,0 +1,62 @@
+header#intranet-menu { background: transparent; padding: 30px 100px; position: fixed; top: 0px; left: 0px; z-index: 9; display: -webkit-flex; display: -ms-flexbox; display: flex; width: 100%; -webkit-flex-wrap: nowrap; -moz-flex-wrap: nowrap; -ms-flex-wrap: nowrap; flex-wrap: nowrap; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; -ms-align-items: center; -o-align-items: center; align-items: center; -webkit-justify-content: space-between; -ms-justify-content: space-between; justify-content: space-between; -webkit-transition: 0.5s all; transition: 0.5s all;}
+header#intranet-menu.scrolled { background: #3f5465; }
+header#intranet-menu svg#GDMI-logo { width: 150px; height: 42px; }
+header#intranet-menu .hamburguer span { -webkit-transition: 0.5s all; transition: 0.5s all; left: 0px; top: 0px; position: relative; width: 40px; height: 3px; background: white; display: block; border-radius: 5px; margin-bottom: 9px; }
+header#intranet-menu .hamburguer span:nth-child(2) { -webkit-transition: 0.2s all; transition: 0.2s all; }
+header#intranet-menu .hamburguer span:last-child { margin-bottom: 0px; }
+header#intranet-menu .hamburguer { cursor: pointer; }
+header#intranet-menu .hamburguer.close span:nth-child(1) { left: 0px; top: 14px; -webkit-transform: rotate( 45deg ); transform: rotate( 45deg ); -webkit-transform-origin: center center; transform-origin: center center; }
+header#intranet-menu .hamburguer.close span:nth-child(2) { opacity: 0; }
+header#intranet-menu .hamburguer.close span:nth-child(3) { top: -10px; -webkit-transform: rotate( -45deg ); transform: rotate( -45deg ); -webkit-transform-origin: center center; transform-origin: center center; }
+
+header#intranet-menu .bell-icon { width: 23px; height: 26px; }
+header#intranet-menu .user-icon { width: 25px; height: 23px; }
+header#intranet-menu .information, header#intranet-menu .user { display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-flex-wrap: nowrap; -moz-flex-wrap: nowrap; -ms-flex-wrap: nowrap; flex-wrap: nowrap; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; -ms-align-items: center; -o-align-items: center; align-items: center; position: relative; }
+header#intranet-menu .notifications { position: relative; }
+header#intranet-menu .notifications span.number { position: absolute; right: -7px; top: -1px; z-index: 2; background: #ed1c24; border-radius: 100%; color: white; width: 18px; height: 18px; text-align: center; font-family: 'Gotham-Bold'; font-size: 10px; vertical-align: middle; max-width: 24px; padding: 1px 0px; }
+header#intranet-menu .name-user { font-family: 'Gotham-Light'; color: white; font-size: 11px; padding-left: 15px; letter-spacing: 1px; }
+header#intranet-menu .notifications { position: relative; margin-right: 20px; }
+header#intranet-menu .icon { -webkit-filter: brightness(0) invert(1); filter: brightness(0) invert(1); }
+
+header#intranet-menu .logo, header#intranet-menu .hamburguer, header#intranet-menu .information { position: relative; z-index: 102; }
+
+header#intranet-menu .menu { display:none; position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background: url(/image/background/back_pattern-01.jpg); background-size: cover; z-index: 100; }
+header#intranet-menu .container-menu { position: absolute; padding: 150px 100px 80px; height: 100%; width: 100%; }
+
+header#intranet-menu .content-menu { height: 100%; overflow: auto; }
+header#intranet-menu .content-menu::-webkit-scrollbar { width: 7px; }
+header#intranet-menu .content-menu::-webkit-scrollbar-track { background: #f1f1f1; }
+header#intranet-menu .content-menu::-webkit-scrollbar-thumb { background: #00aeef; }
+header#intranet-menu .content-menu::-webkit-scrollbar-thumb:hover { background: #00aeef; }
+
+header#intranet-menu .menu ul { list-style: none; padding: unset; margin: 0px; font-family: 'Gotham-Light'; font-size: 17px; color: white; }
+header#intranet-menu .menu ul a { color: white; text-decoration: none; }
+header#intranet-menu .menu ul li { padding-bottom: 15px; }
+header#intranet-menu .menu .tooltip-menu { background: transparent; border: none; box-shadow: none; position: relative; top: -2px; padding: 0px; margin-left: 5px; }
+
+header#intranet-menu .tooltip-inner { text-align: left; font-family: 'Gotham-Light'; background: #546472 !important; border-radius: 7px; max-width: 300px; padding: 20px; }
+header#intranet-menu .tooltip-arrow::before{ border-right-color: #546472 !important; }
+header#intranet-menu .menu ul a:hover { border-bottom: 3px solid #00aeef; }
+
+@media screen and (min-width: 992px){
+	header#intranet-menu .logo { width: 200px; }
+}
+
+@media screen and (max-width: 991px){
+	header#intranet-menu svg#GDMI-logo { width: 100px; height: 28px; }
+	header#intranet-menu .name-user { display: none; }
+	header#intranet-menu { padding: 30px; }
+}
+
+@media screen and (max-width: 500px){
+	header#intranet-menu .container-menu { padding: 110px 40px 80px; }
+}
+#intranet-menu a:hover button {
+    display: inline-block !important;
+}
+#intranet-menu a.active{
+	border-bottom: 3px solid #fff
+}
+.user.dropdown-toggle::after{
+	color: #fff;
+}

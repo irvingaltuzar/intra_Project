@@ -1,0 +1,36 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import 'owl.carousel/dist/assets/owl.carousel.css';
+
+// Fonts
+@font-face {
+    font-family: 'Gotham-Bold';
+    src: url('/fonts/Gotham-Bold.eot');
+    src: url('/fonts/Gotham-Bold.eot?#iefix') format('embedded-opentype'), url('/fonts/Gotham-Bold.woff2') format('woff2'), url('/fonts/Gotham-Bold.woff') format('woff'), url('/fonts/Gotham-Bold.ttf') format('truetype'), url('/fonts/Gotham-Bold.svg#Gotham-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gotham-Black';
+    src: url('/fonts/Gotham-Black.eot');
+    src: url('/fonts/Gotham-Black.eot?#iefix') format('embedded-opentype'), url('/fonts/Gotham-Black.woff2') format('woff2'), url('/fonts/Gotham-Black.woff') format('woff'), url('/fonts/Gotham-Black.ttf') format('truetype'), url('/fonts/Gotham-Black.svg#Gotham-Black') format('svg');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gotham-Light';
+    src: url('/fonts/Gotham-Light.eot');
+    src: url('/fonts/Gotham-Light.eot?#iefix') format('embedded-opentype'), url('/fonts/Gotham-Light.woff2') format('woff2'), url('/fonts/Gotham-Light.woff') format('woff'), url('/fonts/Gotham-Light.ttf') format('truetype'), url('/fonts/Gotham-Light.svg#Gotham-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+// Variables
+@import 'variables';
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
