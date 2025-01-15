@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 use Spatie\Permission\Traits\HasRoles;
@@ -69,7 +70,8 @@ class User extends Authenticatable
 
     protected $appends = [
         //'full_name',
-        'photo_src'
+        'photo_src',
+        'usuario_underscore'
     ];
 
     public function locations()
@@ -102,8 +104,8 @@ class User extends Authenticatable
 
     public function publication_birthday(){
         $year = Carbon::now()->format('Y');
-		return $this->publications()->where('aux_key_publication', 'like', "%_${year}-%")
-                                    ->where('publications_section_id',1);
+        return $this->hasOne(Publication::class, 'vw_users_usuario','usuario')->where('aux_key_publication', 'like', "%_${year}-%")
+                                                                                ->where('publications_section_id',1);
     }
 
     /* public function getFullNameAttribute(){
@@ -119,5 +121,10 @@ class User extends Authenticatable
         $short_path = preg_replace("#([\\\\/]+)#", '/', substr($file_path, 29));
 
         return env('APP_FILES_URL') . $short_path;
+    }
+
+    public function getUsuarioUnderscoreAttribute()
+    {
+        return (str_replace('.','_',$this->usuario));
     }
 }

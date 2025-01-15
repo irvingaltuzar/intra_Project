@@ -10,6 +10,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\SendEmails;
 use Illuminate\Support\Facades\Mail;
+use App\Models\CatMailer;
+use Illuminate\Support\Facades\Config;
+use Swift_SmtpTransport;
+use Swift_Mailer;
 
 class SendEmail implements ShouldQueue
 {
@@ -35,6 +39,20 @@ class SendEmail implements ShouldQueue
     public function handle()
     {
         $sendEmail = new SendEmails($this->params);
-        Mail::to('comunicacion.interna@grupodmi.com.mx')->bcc($this->params['recipient_emails'])->send($sendEmail);
+
+        //revisamos que hay un email asignado para el departamento del usuario
+        if(session('department_assigned_mail') != null){
+            // obtenemos la info del nuevo correo
+            $smtp_config = CatMailer::where('assigned_to_department',session('department_assigned_mail'))->first();
+            if($smtp_config == null){
+                $smtp_config = CatMailer::where('assigned_to_department','default')->first();
+            }
+        }else{
+            $smtp_config = CatMailer::where('assigned_to_department','default')->first();
+        }
+
+        Mail::to($smtp_config->mail_username)->bcc($this->params['recipient_emails'])->send($sendEmail);
+
+        
     }
 }

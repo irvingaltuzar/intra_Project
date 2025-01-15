@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Services;
+namespace App\services;
+
 class SendEmailService
 {
 	public function test()

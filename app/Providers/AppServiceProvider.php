@@ -24,13 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-        /* \Carbon\Carbon::setLocale(config('app.locale')); */
-        // Configuración para fechas en español
-        \Carbon\Carbon::setUTF8(true);
-        \Carbon\Carbon::setLocale(config('app.locale'));
-        setlocale(LC_ALL, 'es_MX', 'es', 'ES', 'es_MX.utf8');
-
-
+        setlocale(LC_ALL, 'es_Mx');
+        date_default_timezone_set('America/Mexico_City');
+    
     }
 }

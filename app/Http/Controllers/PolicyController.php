@@ -95,8 +95,22 @@ class PolicyController extends Controller
             'title' => 'required|string|max:255',
             'photo' => 'required|image|mimes:jpg,png,|max:5000',
             'description' => 'nullable|string',
+            'link' => 'nullable|string',
             'expiration_date' => 'required|date',
         ]);
+
+        // Se almacena el video
+        $path_video=NULL;
+        $docName = '_policy';
+        if($request->file('video') != null){
+            $fileName = time().$docName.'.';
+            $file = $request->file('video');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $fileName.$extension;
+            $path_video = '/news/'.$fileName;
+            \Storage::disk('public')->put($path_video,\File::get($file));
+            $path_video = 'storage'.$path_video;
+        }
 
         // Se almacena la imagen
         $file = $request->file('photo');
@@ -110,7 +124,9 @@ class PolicyController extends Controller
         $newRecord = new Policy();
         $newRecord->title = $request->title;
         $newRecord->photo = 'storage'.$path;
+        $newRecord->video = $path_video;
         $newRecord->description = $request->description;
+        $newRecord->link = $request->link;
         $newRecord->expiration_date = $request->expiration_date;
         $newRecord->save();
 
@@ -201,6 +217,7 @@ class PolicyController extends Controller
             'locations' => 'required|array',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'link' => 'nullable|string',
             'expiration_date' => 'required|date',
         ]);
 
@@ -219,13 +236,33 @@ class PolicyController extends Controller
 
         }
 
+        // Se almacena el video
+        $path_video="";
+        $docName = '_policy';
+        if($request->file('video') != null){
+
+            $fileName = time().$docName.'.';
+            $file = $request->file('video');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $fileName.$extension;
+            $path_video = '/news/'.$fileName;
+            \Storage::disk('public')->put($path_video,\File::get($file));
+        }
+
         $editRecord = Policy::where('id',$request->policy)->first();
         $editRecord->title = $request->title;
         $editRecord->description = $request->description;
+        $editRecord->link = $request->link;
         $editRecord->expiration_date = $request->expiration_date;
 
         if($request->file('photo') != null){
             $editRecord->photo = 'storage'.$path;
+        }
+
+        if($request->file('video') != null){
+            //Se elimina el video física que se reemplazara
+            $this->GeneralFunctionsRepository->deleteFile(['url'=>$editRecord->video]);
+            $editRecord->video = 'storage'.$path_video;
         }
 
         $editRecord->save();
@@ -395,10 +432,15 @@ class PolicyController extends Controller
                 'link' => url('news').'?section=pane-policies',
                 'title' => "Políticas - $record->title",
                 'description' => $record->description,
+                'link_data' => $record->link,
+                'link_video' => $record->video != null ? "multimedia/policy/$record->id" : null,
                 'photo' =>"https://www.grupodmi.com.mx/intranet/img/comunicados/$cover_img_name",
             ];
 
             $this->GeneralFunctionsRepository->sendEmails($mail_data);
+
+            //Se envia la notificación del comunicado
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id,$_sub_seccion_id);
         }
 
     }

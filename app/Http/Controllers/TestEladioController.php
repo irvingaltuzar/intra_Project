@@ -27,6 +27,11 @@ use Illuminate\Support\Facades\Route;
 use App\Jobs\SendEmail;
 use App\Models\AreaNotice;
 use App\Models\Promotion;
+use App\Models\ValidationMetadata;
+use App\Models\CatMailer;
+use Illuminate\Support\Facades\Config;
+use Swift_SmtpTransport;
+use Swift_Mailer;
 
 
 
@@ -37,18 +42,14 @@ class TestEladioController extends Controller
     public function __construct(){
         /*
         $this->CollaboratorController = new CollaboratorController(); */
-        //$this->GeneralFunctionsRepository = new GeneralFunctionsRepository();
+        $this->GeneralFunctionsRepository = new GeneralFunctionsRepository();
 
 
     }
 
     public function index(){
-
-        //$promo = Promotion::with('user', 'user.locations')->whereMonth('created_at','07')->whereYear('created_at','2023')->orderByRaw('DAY(created_at) desc')->get();
-        $promo = Promotion::all();
-        dd($promo);
-        //phpinfo();
-        //$this->uploadFTP();
+        
+        dd(Session::all());
     }
 
     public function uploadFTP(){

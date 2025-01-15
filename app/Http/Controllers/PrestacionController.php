@@ -196,6 +196,11 @@ class PrestacionController extends Controller
             }
         }
 
+        $this->sendNotifications($newRecord->id,$this->sub_seccion_id);
+        if($request->check_send_email == 1){
+            $this->sendEmails($newRecord->id,$this->sub_seccion_id);
+        }
+
         /* Start - Auditoria */
         $params=[
             "sub_seccion_id" =>$this->sub_seccion_id,
@@ -407,6 +412,61 @@ class PrestacionController extends Controller
 
         }else{
             return ['success' => 0, 'message' => "No es valido el registro enviado."];
+        }
+
+    }
+
+    public function sendNotifications($_record_id,$_sub_seccion_id){
+
+        $record = Benefit::find($_record_id);
+
+        if($record != null){
+            $photo = null;
+            $users_email = $this->GeneralFunctionsRepository->getUsersByLocation($_record_id,$_sub_seccion_id);
+
+            $mail_data = [
+                'link' => url('beneficios_prestaciones').'?section=pane-benefits-2',
+                'title' => "Prestaciones - $record->title",
+            ];
+    
+            //Se envia la notificación del comunicado
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id,$_sub_seccion_id);
+            
+
+        }
+
+    }
+
+    public function sendEmails($_record_id,$_sub_seccion_id){
+
+        $record = Benefit::find($_record_id);
+
+        if($record != null){
+            $photo = null;
+            $users_email = $this->GeneralFunctionsRepository->getUsersByLocation($_record_id,$_sub_seccion_id);
+            if($record->photo != null){
+                $cover_img_name = $this->GeneralFunctionsRepository->getCoverNameImg($record->photo);
+                $photo="https://www.grupodmi.com.mx/intranet/img/comunicados/$cover_img_name";
+            }
+            
+
+            $mail_data = [
+                'sub_seccion' => "benefit",
+                'recipient_emails' =>$users_email,
+                'subject' => "Eventos - $record->title",
+                'link' => url('beneficios_prestaciones').'?section=pane-benefits-2',
+                'title' => "Prestaciones - $record->title",
+                'description' => $record->description,
+                'link_data' =>  $record->link,
+                'photo' =>$photo,
+            ];
+
+            $this->GeneralFunctionsRepository->sendEmails($mail_data);
+            
+            //Se envia la notificación del comunicado
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id,$_sub_seccion_id);
+            
+
         }
 
     }

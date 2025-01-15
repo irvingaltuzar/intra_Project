@@ -22,6 +22,11 @@ class Publication extends Model
         'deleted_at' => 'datetime:Y-m-d h:i:s'
     ];
 
+    protected $appends=[
+        'reactions',
+        'total_comments'
+    ];
+
     public function comments(){
         return $this->hasMany(Comment::class,'publications_id');
     }
@@ -32,6 +37,16 @@ class Publication extends Model
 
     public function user(){
         return $this->hasOne(User::class,'usuario','vw_users_usuario');
+    }
+
+    public function getReactionsAttribute(){
+        $reactions = PostReactions::where('publications_id',$this->id)->get();
+        return $reactions;
+    }
+
+    public function getTotalCommentsAttribute(){
+        $total_comments = Comment::where('publications_id',$this->id)->count();
+        return $total_comments;
     }
 
 }

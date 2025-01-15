@@ -451,6 +451,8 @@ class InternalPostingController extends Controller
             ];
 
             $this->GeneralFunctionsRepository->sendEmails($mail_data);
+            //Se envia la notificación del comunicado
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id,$_sub_seccion_id);
         }
 
     }
@@ -474,6 +476,10 @@ class InternalPostingController extends Controller
             ];
 
             $this->GeneralFunctionsRepository->sendEmails($mail_data);
+
+            //Se envia la notificación del comunicado
+            $mail_data['title'] = $mail_data['subject'];
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id, $record->bucket_location[0]->sub_seccion_id);
 
             /* Start - Auditoria */
             $params=[

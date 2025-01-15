@@ -218,6 +218,14 @@ class NewsController extends Controller
                 $bucket_location->save();
             }
 
+            $publication_data = [
+                'link' => url('news?section=pane-commemorative-dates'),
+                'title' => "Fecha conmemorativa - Se agrego una nueva publicación",
+            ];
+
+            //Se envia la notificación del comunicado
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($publication_data,$conmmemorative->id,$this->sub_seccion_id);
+
         }
 
         /* Start - Auditoria */

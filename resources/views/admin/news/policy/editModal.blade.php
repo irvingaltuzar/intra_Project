@@ -76,7 +76,14 @@
                                 </div>
                             </div>
                             <div class="row mb-2">
-                                <div class="col-sm-12 col-md-12">
+                                <div class="form-floating col-sm-12 col-md-12">
+                                    <input type="text" class="form-control" id="txt_link_edit"
+                                        placeholder="Link" required>
+                                    <label for="txt_link_edit">Link</label>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-12 col-md-6">
                                     <div class="input-file" id="input-file_file_photo_edit">
                                         <label for="" class="label-file">Elige una Imagen <span class="input-required">*</span></label>
                                         <span class="icon-file" data-input="file_photo_edit" data-name-file=""><i class="fas fa-image"></i></span>
@@ -84,12 +91,32 @@
                                         <input class="form-control d-none" type="file" accept="image/png,image/jpeg" id="file_photo_edit" placeholder="Imagen" onchange="updateImage(this)" required>
                                     </div>
                                 </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="input-file" id="input-file_file_video_edit">
+                                        <label for="" class="label-file">Elige un video</label>
+                                        <span class="icon-file" data-input="file_video_edit" data-file_type="image"><i class="fas fa-video"></i></span>
+                                        <span class="name-file" id="name_file_video_edit"></span>
+                                        <input class="form-control d-none" type="file" accept="video/mp4"
+                                            id="file_video_edit" placeholder="Imagen" onchange="uploadImage(this,'video')" required>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row mb-2">
-                                <label class="image-upload" for="txt_link text-center">Imagen cargada</label>
+                                <label class="image-upload" for="txt_link text-center">Imagen y video cargados</label>
                                 <div class="col-sm-12 col-md-12 text-center">
                                     <img src="" id="file_photo_view_edit" alt="" width="45%">
+                                </div>
+                                <div class="col-sm-12 col-md-6 text-center">
+                                    <video class="w-75 border public-video" src="" id="file_video_view_edit" alt="" width="45%" controls="controls" >
+                                        Vídeo no es soportado...
+                                    </video>
+                                    <div class="no-found-data" id="error_file_video_edit">
+                                        <img src="{{url('/image/icons/no-video.svg')}}" alt="" width="45%">
+                                        <br>
+                                        <br>
+                                        No hay video cargado
+                                    </div>
                                 </div>
                             </div>
 

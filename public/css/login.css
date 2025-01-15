@@ -1,0 +1,130 @@
+body, html {
+  height: 100%;
+}
+
+div#login {
+  min-height: 600px;
+  position: relative;
+  height: 100%;
+  background-image: url(/image/background/back_pattern-01.jpg);
+  background-size: cover;
+}
+
+.login-form {
+  position: absolute;
+  top: calc(50% - 40px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logo img {
+  width: 120px;
+  margin: 0 auto;
+  display: table;
+}
+
+.logo {
+  background: #5f6062;
+  padding: 30px 20px;
+  width: 88%;
+  margin: 0 auto;
+  display: table;
+  border-radius: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.content-form {
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  font-family: "Gotham-Light";
+  font-size: 16px;
+  background: white;
+  padding: 75px 45px 30px;
+  margin-top: -50px;
+  border-radius: 8px;
+}
+
+.content-form .title {
+  text-align: center;
+  font-size: 19px;
+}
+
+.content-form input::-moz-placeholder {
+  letter-spacing: 1px;
+  color: #3f5465;
+}
+
+.content-form input:-ms-input-placeholder {
+  letter-spacing: 1px;
+  color: #3f5465;
+}
+
+.content-form, .content-form p, .content-form input, .content-form input::placeholder {
+  letter-spacing: 1px;
+  color: #3f5465;
+}
+
+.form-control {
+  border: unset;
+  border-bottom: 2px solid #6d6e71;
+  border-radius: 0px;
+  margin-bottom: 20px;
+  padding: 4px 2px;
+  outline: unset;
+  box-shadow: unset !important;
+}
+
+input[type=submit] {
+  margin: 50px auto 0;
+  display: table;
+  text-transform: uppercase;
+  font-size: 20px;
+  border: unset;
+  background: no-repeat;
+  transition: 0.3s all;
+  padding: 6px 20px;
+}
+
+input[type=submit]:hover {
+  color: white;
+  background: #354f5e;
+}
+
+footer {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+@media screen and (max-width: 1150px) {
+  div#login {
+    min-height: 710px;
+  }
+
+  .login-form {
+    position: relative;
+    top: unset;
+    left: unset;
+    margin: 0 auto;
+    display: table;
+    transform: unset;
+    padding-top: 80px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .content-form {
+    width: 95%;
+  }
+
+  .login-form {
+    width: 100%;
+  }
+}
+footer {
+  position: absolute !important;
+}

@@ -10,12 +10,15 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Repositories\GeneralFunctionsRepository;
 use App\Models\User;
+use App\Models\PostReactions;
+use App\Models\Notification;
 
 class CommentController extends Controller
 {
     //
 
     public function __construct(){
+        $this->middleware('auth');
         $this->GeneralFunctionsRepository = new GeneralFunctionsRepository();
     }
 
@@ -106,7 +109,19 @@ class CommentController extends Controller
         }
 
         // Se revisa si la publicación envia correos
-        $publicacion = Publication::where('id',$temp_publicacion_id)->first();
+        $publication = Publication::where('id',$temp_publicacion_id)->first();
+        $user = User::join('publications','publications.vw_users_usuario','=','vw_users.usuario')
+            ->where('publications.id',$temp_publicacion_id)
+            ->first();
+
+        $this->GeneralFunctionsRepository->addNotification((object) array(
+                                    "usuario_notifying" => auth()->user()->usuario, // Es el usuario que genera la notificación
+                                    "usuario_notified" => $publication->vw_users_usuario, // Al usuario que le va aparecer la notificación
+                                    "message" => "*".ucwords(strtolower(auth()->user()->name))."* agregó un comentario de cumpleaños.",
+                                    "type" => "comment",
+                                    "data" => null,
+                                    "link" => "/collaborators?section=pane-birthday#link_".$user->usuarioId,
+                                ));
 
         //Cumpleaños
         if($publication->publications_section_id == 1){
@@ -159,8 +174,8 @@ class CommentController extends Controller
             $section = PublicationSection::where('id',$data->publication_section)->first();
 
             $publication = new Publication();
-            $publication->publications_section_id = $data->publication_section;
-            $publication->vw_users_usuario = $data->receiver_vw_users_usuario;
+            $publication->publications_section_id = $section->id;
+            $publication->vw_users_usuario = str_replace('_','.',$data->receiver_vw_users_usuario);
             $publication->aux_key_publication = $aux_key_publication;
             $publication->description = $section->name;
             $publication->save();
@@ -211,6 +226,81 @@ class CommentController extends Controller
 
         return $aux_key_publication;
     }
+
+    public function add_reaction(Request $request){
+        //Se verifica si tiene publicación
+        $temp_publication_id = 0;
+        $new_reaction = null;
+
+        if(isset($request->publication_id) && $request->publication_id > 0){
+
+            // get publication_section 
+            $publication_section = PublicationSection::where('name',$request->section)->first();
+
+
+            $temp_publication_id = $request->publication_id;
+            $new_reaction = new PostReactions();
+            $new_reaction->publications_section_id = $publication_section->id;
+            $new_reaction->publications_id = $request->publication_id;
+            $new_reaction->vw_users_usuario = auth()->user()->usuario;
+            $new_reaction->type_reaction = $request->type_reaction;
+            $new_reaction->save();
+
+        }else{
+            // No tiene publicacion asignada y se tiene que crear una nueva
+            $publication = $this->add_ghost_publication($request);
+
+            $temp_publication_id = $publication->id;
+
+            $new_reaction = new PostReactions();
+            $new_reaction->publications_id = $publication->id;
+            $new_reaction->publications_section_id = $publication->publications_section_id;
+            $new_reaction->vw_users_usuario = auth()->user()->usuario;
+            $new_reaction->type_reaction = $request->type_reaction;
+            $new_reaction->save();
+            
+        }
+
+        if($new_reaction != null){
+
+            $user = User::join('publications','publications.vw_users_usuario','=','vw_users.usuario')
+            ->where('publications.id',$temp_publication_id)
+            ->first();
+
+            $notification = (object) array(
+                "usuario_notifying" => auth()->user()->usuario, // Es el usuario que genera la notificación
+                "usuario_notified" => $user->usuario,
+                "message" => "*".ucwords(strtolower(auth()->user()->name))."* te felicito por tu cumpleaños.",
+                "type" => "reaction",
+                "data" => "felicitaciones",
+                "link" => "/collaborators#link_".$user->usuarioId,
+            );
+            $this->GeneralFunctionsRepository->addNotification($notification);
+        }
+
+        $total_reaction = PostReactions::where('publications_id',$temp_publication_id)->count();
+        $response = ['success' => 1, 'reaction'=> $new_reaction,'total_reactions' =>$total_reaction];
+
+        return $response;
+    }
+
+
+    public function getListReactions(Request $request){
+
+        if(isset($request->publication) && $request->publication > 0){
+            $reactions = PostReactions::with('user')->where('publications_id',$request->publication)->get();
+            
+            return ['success'=> 1,'data'=> $reactions];
+        }else{
+            return ['success'=>0,'data'=>[],'No se encontro la publicación solicitada'];
+        }
+
+        return ($reactions);
+        
+
+    }
+
+
 
 
 

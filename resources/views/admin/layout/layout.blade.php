@@ -1,5 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
+    {{-- Agregar paramétro para siempre cargar los script y link --}}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                updateElementCache();
+            });
+            function updateElementCache(){
+                let links = document.querySelectorAll("link");
+                if(links.length > 0){
+                    links.forEach(link =>{
+                        const currentHref = link.getAttribute('href');
+                        const newHref = currentHref + '?timestamp=' + Date.now();
+                        link.setAttribute('href', newHref);
+                    });
+                }  
+                
+                let scripts = document.querySelectorAll("script");
+                if(scripts.length > 0){
+                    scripts.forEach(script =>{
+                        const currentHref = script.getAttribute('src');
+                        const newHref = currentHref + '?timestamp=' + Date.now();
+                        script.setAttribute('src', newHref);
+                    });
+                }
+            }
+            
+        </script>
+    {{-- Agregar paramétro para siempre cargar los script y link --}}
 
 <head>
     <title>Intranet DMI - Administrador</title>
@@ -90,8 +117,8 @@
 
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
-        <div class="pcoded-container navbar-wrapper">
-            <nav class="navbar header-navbar pcoded-header">
+        <div class="pcoded-container navbar-wrapper" >
+            <nav class="navbar header-navbar pcoded-header" @if (env('APP_ENV_SEND_EMAIL') == 0) style="background:#ff0000!important;" @else @endif>
                 <div class="navbar-wrapper">
                     <div class="navbar-logo">
                         <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
@@ -109,7 +136,11 @@
                             </div>
                         </div>
                         <a href="{{route('home')}}">
-                            <img class="img-fluid" src="{{asset('/image/logo-grupo-dmi.svg')}}" width="50%" alt="Theme-Logo" />
+                            @if (env('APP_ENV_SEND_EMAIL') == 0)
+                                <img class="img-fluid" src="{{asset('/image/logo-grupo-dmi.png')}}" width="50%" alt="Theme-Logo" />
+                            @else
+                                <img class="img-fluid" src="{{asset('/image/logo-grupo-dmi.svg')}}" width="50%" alt="Theme-Logo" />
+                            @endif
                         </a>
                         {{-- <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>

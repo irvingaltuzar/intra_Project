@@ -1,5 +1,5 @@
-$(window).scroll(function() {
-	if ($(window).scrollTop() > 50) {
+/* $(window).scroll(function() {
+	if ($(window).scrollTop() >0) {
 		$('header#intranet-menu').addClass('scrolled');
 	}
 	else{
@@ -13,4 +13,4 @@ $('header#intranet-menu .hamburguer').click(function(){
 	$('header#intranet-menu .menu').slideToggle();
 	$('header#intranet-menu .hamburguer').toggleClass('close');
 	$('header#intranet-menu').toggleClass('open');
-});
+}); */

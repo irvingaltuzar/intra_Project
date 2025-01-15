@@ -49,12 +49,10 @@
                                                                 {!! $promotion->new_position_company !!}
                                                             </div>
                                                             <br> {{--  --}}
-                                                            <br> {{--  --}}
                                                             <span class="text-center job">Reporta a</span>
                                                             <div class="text-card text-center name">
                                                                 {!! $promotion->user_top_name !!}
                                                             </div>
-                                                            <br>
                                                             <br>
                                                             <div class="text-card text-center">
                                                                 <strong>{!! nl2br($promotion->message) !!}</strong>
@@ -64,9 +62,15 @@
                                                                 {{strftime("%d %B", strtotime($promotion->created_at))}}
                                                             </div>
                                                             <div class="development">
-                                                                @if (isset($promotion->user->locations->photo))
-                                                                    <img src="{{$url}}/storage/{{$promotion->user->locations->photo}}" class="img-fluid w-50 h-auto">
+                                                                @if (isset($promotion->logo_location) && $promotion->logo_location != null)
+                                                                    <img src="{{$url}}/storage/{{$promotion->logo_location->photo}}" class="img-fluid w-50 h-auto">
                                                                 @endif
+                                                            </div>
+                                                            <br>
+                                                            <div class="row justify-content-center">
+                                                                <div class="button-dmi-blue" onclick="viewReactionsModal({{ $promotion->id }},'promotions')">
+                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

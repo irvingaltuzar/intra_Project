@@ -44,18 +44,21 @@
             var ths = this;
             
             (function() {
+			//ths.getUser();
                 var headline = document.querySelector('.dmi'),headline1 = document.querySelector('.grupo')
                     trigger = document.querySelector('.btn--trigger'),
                     segmenter = new Segmenter(document.querySelector('.segmenter'), {
                         onReady: function() {
-
+                            segmenter.animate();
+                            headline.classList.remove('trigger-headline--hidden');
+                            headline1.classList.remove('trigger-headline--hidden');
+                            
                             setTimeout(() => {
-                                segmenter.animate();
-                                headline.classList.remove('trigger-headline--hidden');
-                                headline1.classList.remove('trigger-headline--hidden');
+                    
                                 ths.getUser();
 
-                            }, 1200);
+                            }, 2000);
+							
                         }
                     });
 

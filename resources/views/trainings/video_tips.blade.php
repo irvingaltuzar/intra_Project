@@ -20,7 +20,7 @@
                                         <video class="w-100 border public-video"  src="http://192.168.3.170:8000/storage/Publico/{{$item['archivo']}}" alt="">
                                     </div>
                                     <div class="card-body m-4" style="overflow-y: auto">
-                                        <h5 class="card-title"><strong>{{$item['titulo']}}</strong></h5>
+                                        <h5 class="card-title mt-5"><strong>{{$item['titulo']}}</strong></h5>
                                     </div>
                                     <div class="card-footer text-center" style="background: inherit; border-color: inherit;">
                                         <a target="_black" onclick="showVideo({{$item['documentodId']}})" class="special-buttom">Ver</a>

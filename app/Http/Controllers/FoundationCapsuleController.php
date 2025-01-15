@@ -480,6 +480,9 @@ class FoundationCapsuleController extends Controller
             ];
 
             $this->GeneralFunctionsRepository->sendEmails($mail_data);
+
+            //Se envia la notificación del comunicado
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id,$_sub_seccion_id);
         }
 
     }
@@ -505,6 +508,10 @@ class FoundationCapsuleController extends Controller
             ];
 
             $this->GeneralFunctionsRepository->sendEmails($mail_data);
+            
+            //Se envia la notificación del comunicado
+            $mail_data['title'] = $mail_data['subject'];
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id,$this->sub_seccion_id);
 
             return ['success' => 1, 'message' => "Recordatorio enviado con éxito"];
         }

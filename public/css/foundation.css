@@ -1,0 +1,158 @@
+#foundation {
+  background-image: url(/image/background/back_us.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+div#content-tabs-foundation {
+  margin-top: 50px;
+}
+
+ul.nav.nav-tabs {
+  box-shadow: none;
+  background: transparent;
+  border: none;
+}
+
+.tab-content {
+  font-family: "Gotham-Light";
+}
+
+.tab-content h3 {
+  font-size: 20px;
+}
+
+.card-body .content {
+  border-radius: 6px !important;
+  padding-top: 40px;
+  margin-top: 30px !important;
+}
+
+.card-body .content:before {
+  display: none;
+}
+
+.year {
+  font-family: "Gotham-Bold";
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  color: white;
+  background-color: #00aeef !important;
+}
+
+a.special-buttom {
+  color: white;
+  background-color: #00aeef !important;
+  text-decoration: none;
+  padding: 10px 20px;
+  display: table;
+  border: none;
+  border-radius: 8px;
+  font-family: "Gotham-Bold";
+  text-transform: uppercase;
+  font-size: 15px;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  transition: 0.4s all;
+}
+
+a.special-buttom:hover {
+  background-color: #3f5465 !important;
+}
+
+ul.data {
+  margin-bottom: 50px;
+  list-style: none;
+  padding: 0px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+ul.data li .icon-foundation {
+  width: 44px;
+  position: absolute;
+  top: -5px;
+  left: -15px;
+}
+
+ul.data li {
+  position: relative;
+  padding: 0px 30px;
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+}
+
+ul.data .title {
+  margin-bottom: 6px;
+}
+
+ul.data .description {
+  font-size: 13px;
+}
+
+.slick-slide {
+  height: auto !important;
+}
+
+.slider-nav {
+  margin-top: 15px;
+}
+
+button.slick-prev, button.slick-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #919396;
+}
+
+button.slick-prev {
+  left: -35px;
+}
+
+button.slick-next {
+  right: -35px;
+}
+
+.slider-nav img {
+  max-width: 96%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 991px) {
+  .slider-nav img {
+    width: 93%;
+    margin: 0 auto;
+  }
+
+  ul.data li {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+@media screen and (max-width: 767px) {
+  ul.data li {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  button.slick-prev {
+    left: 0px;
+  }
+
+  button.slick-next {
+    right: 0px;
+  }
+
+  button.slick-prev, button.slick-next {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(63, 84, 101, 0.5);
+  }
+}

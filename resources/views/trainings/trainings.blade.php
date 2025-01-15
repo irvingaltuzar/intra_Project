@@ -44,6 +44,7 @@
                                 <li class="nav-item">
                                     <a id="tab-calendar" href="#pane-calendar" class="nav-link active" data-bs-toggle="tab" role="tab">CALENDARIO</a>
                                 </li>
+                                
                                 @if(sizeof($video_tips) > 0)
                                     <li class="nav-item">
                                         <a id="tab-video_tips" href="#pane-video_tips" class="nav-link" data-bs-toggle="tab" role="tab">VIDEO TIPS</a>
@@ -51,11 +52,11 @@
                                 @endif
 
 
-                                @if(sizeof($induccion_intelisis) > 0)
+                                {{-- @if(sizeof($induccion_intelisis) == 0) --}}
                                     <li class="nav-item">
-                                        <a id="tab-induccion_intelisis" href="#pane-induccion_intelisis" class="nav-link" data-bs-toggle="tab" role="tab">INDUCCIÓN INTELISIS</a>
+                                        <a id="tab-induccion_intelisis" href="#pane-induccion_intelisis" class="nav-link" data-bs-toggle="tab" role="tab">VIDEOS CAPACITACIÓN</a>
                                     </li>
-                                @endif
+                                {{-- @endif --}}
 
                                 @if(sizeof($induccion_basica) > 0)
                                     <li class="nav-item">

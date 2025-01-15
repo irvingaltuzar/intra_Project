@@ -1,0 +1,62 @@
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active { color: white; background-color: #00aeef!important; }
+.nav-tabs .nav-link { font-size: 13px; padding: 0.5rem 0.5rem; }
+
+.news { position: relative; max-width: 90%; margin-left: auto; margin-right: auto; margin-bottom: 40px; }
+.news .line { position: absolute; right: 0px; bottom: 100px; width: 20px; height: calc(100% - 190px ); background: #4d5b6a; }
+.news img.image-news { width: 100%; height: auto; }
+.news .information { position: relative; padding-top: 50px; padding-bottom: 100px; }
+.news .information .content-information { display: table; max-width: 350px; }
+.news .information .title { background: #49a5b8; color: white; padding: 20px; width: 90%; position: relative; border-radius: 0px 40px 0px 40px; }
+.news .information .title h3 { color: white; margin: 0px; }
+.news .information .content-news { background: #4d5b6a; color: white; font-family: 'Gotham-Bold'; padding: 50px 20px 20px; margin-top: -30px; border-radius: 0px 40px 0px 40px;}
+.news .information .content-news .date { font-size: 22px; margin-bottom: 15px; }
+.news .logo { position: absolute; bottom: 20px; right: 20px; }
+
+@media screen and (max-width: 991px){
+	.news img.image-news { position: relative; object-fit: unset; width: 100%; height: auto; }
+	.news .information { padding: 0px; }
+	.news .information .title { margin: 0 auto; display: table; margin-top: -50px; }
+	.news .information .content-information { max-width: 100%; }
+	.news .description { padding-bottom: 35px; }
+}
+
+.date-conmmemorative{
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.description{
+    font-size: 18px;
+    font-family: var(--bs-font-sans-serif);
+}
+
+.component-article{
+    border: 1px solid var(--color-dmi);
+    border-radius: 15px;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 90%);
+    margin-bottom: 35px;
+}
+
+.header-article{
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+.date{
+    font-family: "Gotham-Light";
+    color: #00aeef;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 15px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.icon-files{
+    background: var(--color-dmi);
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+}

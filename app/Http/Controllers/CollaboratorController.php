@@ -86,7 +86,7 @@ class CollaboratorController extends Controller
     protected function promotion($mont){
 
         $year = Carbon::now()->format('Y');
-        return Promotion::with('user', 'user.locations')->whereMonth('created_at',$mont)->whereYear('created_at',$year)->orderByRaw('DAY(created_at) desc')->get();
+        return Promotion::whereMonth('created_at',$mont)->whereYear('created_at',$year)->orderByRaw('DAY(created_at) desc')->get();
     }
 
     protected function birthday($mont){
@@ -199,6 +199,16 @@ class CollaboratorController extends Controller
         ];
         $this->GeneralFunctionsRepository->addAudit($params);
         /* End - Auditoria */
+
+        $publication_data = [
+            'link' => url('collaborators?section=pane-births'),
+            'title' => "Nacimientos - Se agrego una nueva publicación",
+        ];
+
+        //Se envia la notificación del comunicado
+        $all_users="all";
+        $this->GeneralFunctionsRepository->preparingNotificationCommunique($publication_data,null,null,$all_users);
+
 
         return ['success'=> 1, 'data'=>$birth];
 
@@ -436,36 +446,34 @@ class CollaboratorController extends Controller
        //Se eliminan las ubicaciones actuales y se almacenan los id de las ubicaciones creadas
         if($condolence != null){
 
-        //Se verifica si trae subgrupos
-        if(isset($request->subgroups)){
-            $relation_subgroups = Location::join('subgroups','subgroups.vw_locations_name','=','vw_locations.name')
-                                    ->whereIn('subgroups.id',$request->subgroups)
-                                    ->whereNull('subgroups.deleted_at')
-                                    ->whereNull('vw_locations.deleted_at')
-                                    ->select('vw_locations.id as vw_locations_id','vw_locations.name as vw_locations_name',
-                                            'subgroups.id as subgroups_id','subgroups.name as subgroups_name')
-                                    ->get();
-        }else{
-            $relation_subgroups = Location::join('subgroups','subgroups.vw_locations_name','=','vw_locations.name')
-                                    ->whereIn('vw_locations.id',$request->locations)
-                                    ->whereNull('subgroups.deleted_at')
-                                    ->whereNull('vw_locations.deleted_at')
-                                    ->select('vw_locations.id as vw_locations_id','vw_locations.name as vw_locations_name',
-                                            'subgroups.id as subgroups_id','subgroups.name as subgroups_name')
-                                    ->get();
+            //Se verifica si trae subgrupos
+            if(isset($request->subgroups)){
+                $relation_subgroups = Location::join('subgroups','subgroups.vw_locations_name','=','vw_locations.name')
+                                        ->whereIn('subgroups.id',$request->subgroups)
+                                        ->whereNull('subgroups.deleted_at')
+                                        ->whereNull('vw_locations.deleted_at')
+                                        ->select('vw_locations.id as vw_locations_id','vw_locations.name as vw_locations_name',
+                                                'subgroups.id as subgroups_id','subgroups.name as subgroups_name')
+                                        ->get();
+            }else{
+                $relation_subgroups = Location::join('subgroups','subgroups.vw_locations_name','=','vw_locations.name')
+                                        ->whereIn('vw_locations.id',$request->locations)
+                                        ->whereNull('subgroups.deleted_at')
+                                        ->whereNull('vw_locations.deleted_at')
+                                        ->select('vw_locations.id as vw_locations_id','vw_locations.name as vw_locations_name',
+                                                'subgroups.id as subgroups_id','subgroups.name as subgroups_name')
+                                        ->get();
+            }
+
+            foreach ($relation_subgroups as $key => $subgroup) {
+                $bucket_location = new BucketLocation();
+                $bucket_location->origin_record_id = $condolence->id;
+                $bucket_location->locations_id = $subgroup->vw_locations_id;
+                $bucket_location->subgroups_id = $subgroup->subgroups_id;
+                $bucket_location->sub_seccion_id = 5;
+                $bucket_location->save();
+            }
         }
-
-        foreach ($relation_subgroups as $key => $subgroup) {
-            $bucket_location = new BucketLocation();
-            $bucket_location->origin_record_id = $condolence->id;
-            $bucket_location->locations_id = $subgroup->vw_locations_id;
-            $bucket_location->subgroups_id = $subgroup->subgroups_id;
-            $bucket_location->sub_seccion_id = 5;
-            $bucket_location->save();
-        }
-
-    }
-
        //$this->sendEmailsCondolences($condolence->id,5);
 
         /* Start - Auditoria */
@@ -547,7 +555,7 @@ class CollaboratorController extends Controller
         $promotions = [];
 
         if(isset($search->isSearch) && strlen($search->text) > 0){
-            $promotions = Promotion::with(['user.locations','user_top.locations'])
+            $promotions = Promotion::with(['logo_location'])
             ->whereRaw("(message like '%$search->text%'
                 or new_position_company like '%$search->text%'
                 or created_at like '%$search->text%')")
@@ -559,7 +567,7 @@ class CollaboratorController extends Controller
         }
 
         $promotions->setPath('/collaborators/promotions');
-
+        //dd($promotions);
         return $promotions;
 
     }
@@ -572,14 +580,14 @@ class CollaboratorController extends Controller
         $promotions = [];
 
         if(isset($search->isSearch) && strlen($search->text) > 0){
-            $promotions = Promotion::with(['user.locations','user_top.locations'])
-            ->whereRaw("(message like '%$search->text%'
+            $promotions = Promotion::whereRaw("(message like '%$search->text%'
                 or new_position_company like '%$search->text%'
+                or complete_name like '%$search->text%'
                 or created_at like '%$search->text%')")
             ->orderBy('expiration_date',$order_by)->Paginate($limit);
         }else{
 
-            $promotions = Promotion::with(['user.locations','user_top.locations'])->orderBy('expiration_date',$order_by)
+            $promotions = Promotion::orderBy('expiration_date',$order_by)
             ->Paginate($limit);
         }
 
@@ -617,7 +625,7 @@ class CollaboratorController extends Controller
         $user = User::where('full_name',$request->vw_users_usuario)
                         ->where('status','ALTA')
                         ->first();
-        $user_top = User::where('usuario',$request->vw_users_usuario_top)
+        $user_top = User::where('full_name',$request->vw_users_usuario_top)
                         ->where('status','ALTA')
                         ->first();
 
@@ -644,6 +652,15 @@ class CollaboratorController extends Controller
         ];
         $this->GeneralFunctionsRepository->addAudit($params);
         /* End - Auditoria */
+
+        $publication_data = [
+            'link' => url('collaborators?section=pane-promotions'),
+            'title' => "Ascensos - Se agrego una nueva publicación",
+        ];
+
+        //Se envia la notificación del comunicado
+        $all_users="all";
+        $this->GeneralFunctionsRepository->preparingNotificationCommunique($publication_data,null,null,$all_users);
 
         return ['success'=> 1, 'data'=>$promotion];
     }
@@ -679,8 +696,8 @@ class CollaboratorController extends Controller
                         ->first();
 
         $promotion = Promotion::where('id',$request->promotion_id)->first();
-        $promotion->vw_users_usuario = $request->vw_users_usuario;
-        $promotion->vw_users_usuario_top = $request->vw_users_usuario_top;
+        $promotion->user_name = $request->vw_users_usuario;
+        $promotion->user_top_name = $request->vw_users_usuario_top;
         $promotion->new_position_company = $request->new_position_company;
         $promotion->message = $request->message;
         $promotion->expiration_date = $request->expiration_date;
@@ -750,7 +767,7 @@ class CollaboratorController extends Controller
                 'sub_seccion' => "promotions",
                 'recipient_emails' =>$users_email,
                 'subject' => "Aviso - Cambio Orginizacional",
-                'link' => url('collaborators'),
+                'link' => url('collaborators?section=pane-promotions'),
                 'title' => "Ascenso Interno",
                 'user' => $record->user->full_name,
                 'user_top' => $record->user_top->full_name,
@@ -760,6 +777,11 @@ class CollaboratorController extends Controller
             ];
 
             $this->GeneralFunctionsRepository->sendEmails($mail_data);
+
+            //Se envia la notificación del comunicado
+            $all_users="all";
+            $mail_data['title'] = "Ascenso Interno - Cambio Orginizacional";
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id,$_sub_seccion_id,$all_users);
         }
 
     }
@@ -786,6 +808,10 @@ class CollaboratorController extends Controller
             ];
 
             $this->GeneralFunctionsRepository->sendEmails($mail_data);
+
+            //Se envia la notificación del comunicado
+            $mail_data['title']= $mail_data['subject'];
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id,$_sub_seccion_id);
         }
 
     }

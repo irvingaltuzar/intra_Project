@@ -40,7 +40,7 @@ class Comment extends Model
 
     public function getUserAttribute(){
         $user = User::where('usuario',$this->vw_users_usuario)->first();
-        $photo = asset('image/icons/user.svg');
+        /* $photo = asset('image/icons/user.svg');
         if($user != null){
             if($user->photo == ""){
                 if(strtoupper($user->sex) == 'MASCULINO'){
@@ -55,7 +55,8 @@ class Comment extends Model
 
         $full_name = "$user->name $user->last_name";
 
-        return ['full_name'=>$full_name,'photo'=>$photo];
+        return ['full_name'=>$full_name,'photo'=>$photo]; */
+        return $user;
     }
 
     public function childrenComments(){

@@ -11,6 +11,7 @@ use App\Models\BucketFile;
 use App\Models\LearningVideo;
 use App\Models\File;
 use App\Models\Location;
+use App\Models\ValidationMetadata;
 use Carbon\Carbon;
 use Image;
 
@@ -48,11 +49,13 @@ class TrainingController extends Controller
 
         /* Videos de capacitacion */
         $video_tips = LearningVideo::where('titulo','like','VT%')->get();
-        $induccion_intelisis = LearningVideo::where('titulo','like','II%')->orderBy('titulo','asc')->get();
+        /* $induccion_intelisis = LearningVideo::where('titulo','like','II%')->orderBy('titulo','asc')->get(); */
         $induccion_basica = LearningVideo::where('titulo','like','IB%')->get();
         $data_learning = LearningVideo::all();
 
-        $compact = compact('trainings','video_tips','induccion_intelisis','induccion_basica','data_learning');
+        $link_sharepoint = ValidationMetadata::where('key','training_link_sharepoint_intelisis')->first();
+
+        $compact = compact('trainings','video_tips','induccion_basica','data_learning','link_sharepoint');
         return view('trainings.trainings')->with($compact);
     }
 
@@ -204,6 +207,8 @@ class TrainingController extends Controller
                 }
             }
         }
+
+        $this->sendNotifications($newRecord->id,$this->sub_seccion_id);
 
         /* Start - Auditoria */
         $params=[
@@ -420,6 +425,27 @@ class TrainingController extends Controller
 
         }else{
             return ['success' => 0, 'message' => "No es valido el registro enviado."];
+        }
+
+    }
+
+    public function sendNotifications($_record_id,$_sub_seccion_id){
+
+        $record = Training::find($_record_id);
+
+        if($record != null){
+            $photo = null;
+            $users_email = $this->GeneralFunctionsRepository->getUsersByLocation($_record_id,$_sub_seccion_id);
+
+            $mail_data = [
+                'link' => url('trainings'),
+                'title' => "Capacitación - $record->title",
+            ];
+    
+            //Se envia la notificación del comunicado
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id,$_sub_seccion_id);
+            
+
         }
 
     }

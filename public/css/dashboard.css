@@ -1,0 +1,376 @@
+body, html {
+  height: 100%;
+}
+
+.header-app{
+  background: #3f5465;
+}
+
+div#dashboard {
+  min-height: 600px;
+  position: relative;
+  height: 130vh;
+  background-image: url(/image/background/back_home-01.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+footer {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.container {
+  position: relative;
+  height: 100%;
+}
+
+.content-dashboard {
+  position: absolute;
+  width: 100%;
+  left: 0px;
+  top: 12%;
+  /* transform: translateY(-50%); */
+}
+
+.content-dashboard h1 {
+  font-family: "Gotham-Light";
+  color: var(--color-dmi);;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 auto 25px;
+  display: table;
+}
+
+.content-dashboard h1 span {
+  font-family: "Gotham-Black";
+}
+
+.carousel-publications .owl-stage {
+  display: flex;
+}
+
+.carousel-publications .item, .carousel-publications .publication {
+  height: 200px;
+}
+
+.carousel-publications .title-section {
+  font-family: "Gotham-Bold";
+  color: white;
+  font-size: 18px;
+  background: #00aeef;
+  display: table;
+  padding: 5px 25px;
+  margin: 0px;
+  position: relative;
+  margin-left: 35px;
+  border-radius: 10px;
+  letter-spacing: 2px;
+  top: 20px;
+  z-index: 5;
+}
+
+.carousel-publications .publication {
+  padding: 40px 12px 30px;
+  background: white;
+  border-radius: 10px;
+  margin: 0px;
+}
+
+.carousel-publications .publication .principal-image {
+  border-radius: 100%;
+  border: 3px solid #e0e1e2;
+  max-width: 135px;
+  margin: 0 auto;
+}
+
+.carousel-publications .publication .photo-column {
+  position: relative;
+  padding-left: unset;
+}
+
+.carousel-publications .publication .photo-column .comments-icon {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+.carousel-publications .publication .title {
+  font-family: "Gotham-Bold";
+  font-size: 18px;
+  color: #6d6e71;
+  line-height: 21px;
+  margin-bottom: 5px;
+}
+
+.carousel-publications .publication .description {
+  font-family: "Gotham-Light";
+  font-size: 17px;
+}
+
+.carousel-publications .publication .birthday .description {
+  font-family: "Gotham-Bold";
+  font-size: 13px;
+}
+
+.carousel-publications .publication .title.small {
+  font-size: 14px;
+}
+
+
+/* ============================ @media ============================ */
+@media screen and (max-width: 1440px) {
+  .carousel-publications .publication .photo-column .comments-icon {
+    right: 25px;
+  }
+}
+@media screen and (min-width: 1051px) and (max-height: 700px) {
+  .content-dashboard {
+    position: relative;
+    top: unset;
+    transform: unset;
+    padding-top: 150px;
+  }
+
+  .content-dashboard h1 {
+    margin-bottom: 50px;
+  }
+
+  div#dashboard {
+    min-height: 700px;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .container {
+    min-height: 86%;
+    height: auto;
+  }
+
+  div#dashboard {
+    min-height: unset;
+    height: auto;
+  }
+
+  .content-dashboard {
+    position: relative;
+    top: unset;
+    transform: unset;
+    padding-top: 100px;
+    padding-bottom: 150px;
+  }
+
+  .content-dashboard h1 {
+    margin-bottom: 50px;
+  }
+}
+
+.divider-3{
+
+}
+
+@media screen and (max-width: 767px) {
+  /* .content-dashboard {
+    padding-top: 150px;
+  } */
+
+  .divider-3{
+    margin-top: 1rem!important;
+  }
+
+  .content-dashboard h1 {
+    text-align: center;
+  }
+
+  .carousel-publications .title-section {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 5px 20px;
+    max-width: 90%;
+  }
+
+  .carousel-publications .publication .title {
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .carousel-publications .publication .description {
+    text-align: center;
+  }
+
+  .carousel-publications .publication .photo-column .comments-icon {
+    right: unset;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+.owl-dots {
+  display: none;
+}
+
+.last-check{
+  background: var(--color-bienes-dmi);
+  border-radius: 5px;
+  padding: 2px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  color:white;
+}
+
+/* Start - Nuevos estilos v2 */
+.text-white{
+ color:white!important;
+}
+
+.img-left-carrusel{
+  height: 400px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 5px;
+}
+
+.img-right-carrusel{
+  height: 210px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 5px;
+}
+
+.home-card-transparency-title{
+  background: var(--color-bienes-dmi);
+  border-radius: 10px;
+  padding: 3px;
+  text-transform: uppercase;
+  color: white;
+  text-align: center;
+  margin-bottom: -15px;
+  font-size: 14px;
+  z-index: 1;
+
+}
+.home-card-transparency-body{
+  background: #00000038;
+  border-radius: 10px;
+  padding: 20px 5px 5px 5px;
+  backdrop-filter:blur(7px);
+}
+
+.birth-person{
+  border-radius: 100%;
+  border: 3px solid #e0e1e2;
+  margin: 0 auto;
+  display: table;
+  width: 35%;
+}
+.birth-name {
+  font-family: "Gotham-Bold";
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 15px;
+}
+.birth-job {
+  color:  #ffffff;
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 15px;
+}
+.birth-date {
+  color: var(--color-blue-dmi);
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.birth-location{
+  width: 100px!important;
+  background: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+
+.birth-btn-congratulation{
+  height: 35px;
+  width: auto;
+  background: #ffffff;
+  border-radius: 50%;
+  padding: 0.25rem!important;
+}
+.birth-btn-congratulation:hover{
+  border: 2px solid #95358c;
+  box-shadow: 0 3px 1px -2px rgb(255 255 255), 0 0px 0px 0 rgb(255 255 255), 0 0px 8px 0 #ffffff;
+}
+
+.birth-font-number{
+  color: #5f5f5f;
+}
+
+.icon-application{
+  width: 40%!important;
+  background: white;
+  border-radius: 10px;
+}
+
+.no-reaction{
+  color: #666666!important;
+}
+
+.img-magazine{
+  width: 90%;
+}
+
+
+/* ----- */
+
+.ticket-title{
+  font-size: 14px;
+  font-weight: 600;
+}
+.ticket-tags{
+  font-size: 13px;
+  font-weight: 100;
+}
+
+.icon-bell{
+  font-size: 25px;
+  padding-top: 5px;
+  padding-right: 3px;
+  color: white;
+}
+
+.img-carousel-benefit{
+  height: 162px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.nav-bg-dmi{
+  background: #3f5465!important;
+}
+
+@media screen and (max-width: 767px) {
+  .img-magazine{
+    height: 100%;
+    width: unset;
+  }
+  .birth-person {
+    width: 25%;
+  }
+}
+
+
+.sub-title-publication{
+  color: white;
+  background: var(--color-investment-dmi);
+  border-radius: 5px;
+}
+/* End - Nuevos estilos v2 */
+

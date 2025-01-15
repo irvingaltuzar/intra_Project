@@ -62,12 +62,21 @@
                                                         <tr class="border-tr b-tr-revisando">
                                                             <td>{{ $project->name }}</td>
                                                             <td>
-                                                                <span class="user-name mb-1">{{ $project->owner->full_name }}</span><br>
-                                                                <span class="user-job">{{ $project->owner->position_company_full }}</span>
+                                                                @if ($project->owner != null)
+                                                                    <span class="user-name mb-1">{{ $project->owner->full_name }}</span><br>
+                                                                    <span class="user-job">{{ $project->owner->position_company_full }}</span>
+                                                                @else
+                                                                    <span class="user-name">No se encontró el usuario asignado</span>
+                                                                @endif
+                                                                
                                                             </td>
                                                             <td>
-                                                                <span class="user-name">{{ $project->leader->full_name }}</span><br>
-                                                                <span class="user-job">{{ $project->leader->position_company_full }}</span>
+                                                                @if ($project->leader != null)
+                                                                    <span class="user-name mb-1">{{ $project->leader->full_name }}</span><br>
+                                                                    <span class="user-job">{{ $project->leader->position_company_full }}</span>
+                                                                @else
+                                                                    <span class="user-name">No se encontró el usuario asignado</span>
+                                                                @endif
                                                             </td>
                                                             <td class="status-task-{{$project->project_board_categories_id}} text-white">{{ $project->category->name }}</td>
                                                             <td>
@@ -79,7 +88,7 @@
                                                     @endforeach
                                                 @else  
                                                     <tr class="border-tr b-tr-revisando text-center">
-                                                        <td colspan="5" class="h5">Sin tareas</td>
+                                                        <td colspan="5" class="h5">Sin tareas en revisión</td>
                                                     </tr>                                                    
                                                 @endif
                                                 
@@ -109,12 +118,21 @@
                                                         <tr class="border-tr b-tr-planeando">
                                                             <td>{{ $project->name }}</td>
                                                             <td>
-                                                                <span class="user-name mb-1">{{ $project->owner->full_name }}</span><br>
-                                                                <span class="user-job">{{ $project->owner->position_company_full }}</span>
+                                                                @if ($project->owner != null)
+                                                                    <span class="user-name mb-1">{{ $project->owner->full_name }}</span><br>
+                                                                    <span class="user-job">{{ $project->owner->position_company_full }}</span>
+                                                                @else
+                                                                    <span class="user-name">No se encontró el usuario asignado</span>
+                                                                @endif
+                                                                
                                                             </td>
                                                             <td>
-                                                                <span class="user-name">{{ $project->leader->full_name }}</span><br>
-                                                                <span class="user-job">{{ $project->leader->position_company_full }}</span>
+                                                                @if ($project->leader != null)
+                                                                    <span class="user-name mb-1">{{ $project->leader->full_name }}</span><br>
+                                                                    <span class="user-job">{{ $project->leader->position_company_full }}</span>
+                                                                @else
+                                                                    <span class="user-name">No se encontró el usuario asignado</span>
+                                                                @endif
                                                             </td>
                                                             <td class="status-task-{{$project->project_board_categories_id}} text-white">{{ $project->category->name }}</td>
                                                             <td>
@@ -126,7 +144,7 @@
                                                     @endforeach
                                                 @else
                                                     <tr class="border-tr b-tr-planeando text-center">
-                                                        <td colspan="5" class="h5">Sin tareas</td>
+                                                        <td colspan="5" class="h5">Sin tareas en planeación</td>
                                                     </tr>
                                                 @endif
                                                 
@@ -156,12 +174,21 @@
                                                         <tr class="border-tr b-tr-ejecucion">
                                                             <td>{{ $project->name }}</td>
                                                             <td>
-                                                                <span class="user-name mb-1">{{ $project->owner->full_name }}</span><br>
-                                                                <span class="user-job">{{ $project->owner->position_company_full }}</span>
+                                                                @if ($project->owner != null)
+                                                                    <span class="user-name mb-1">{{ $project->owner->full_name }}</span><br>
+                                                                    <span class="user-job">{{ $project->owner->position_company_full }}</span>
+                                                                @else
+                                                                    <span class="user-name">No se encontró el usuario asignado</span>
+                                                                @endif
+                                                                
                                                             </td>
                                                             <td>
-                                                                <span class="user-name">{{ $project->leader->full_name }}</span><br>
-                                                                <span class="user-job">{{ $project->leader->position_company_full }}</span>
+                                                                @if ($project->leader != null)
+                                                                    <span class="user-name mb-1">{{ $project->leader->full_name }}</span><br>
+                                                                    <span class="user-job">{{ $project->leader->position_company_full }}</span>
+                                                                @else
+                                                                    <span class="user-name">No se encontró el usuario asignado</span>
+                                                                @endif
                                                             </td>
                                                             <td class="status-task-{{$project->project_board_categories_id}} text-white">{{ $project->category->name }}</td>
                                                             <td>
@@ -173,7 +200,7 @@
                                                     @endforeach
                                                 @else
                                                     <tr class="border-tr b-tr-ejecucion text-center">
-                                                        <td colspan="5" class="h5">Sin tareas</td>
+                                                        <td colspan="5" class="h5">Sin tareas en ejecución</td>
                                                     </tr>
                                                 @endif
                                                 
@@ -204,12 +231,21 @@
                                                         <tr class="border-tr b-tr-terminado">
                                                             <td>{{ $project->name }}</td>
                                                             <td>
-                                                                <span class="user-name mb-1">{{ $project->owner->full_name }}</span><br>
-                                                                <span class="user-job">{{ $project->owner->position_company_full }}</span>
+                                                                @if ($project->owner != null)
+                                                                    <span class="user-name mb-1">{{ $project->owner->full_name }}</span><br>
+                                                                    <span class="user-job">{{ $project->owner->position_company_full }}</span>
+                                                                @else
+                                                                    <span class="user-name">No se encontró el usuario asignado</span>
+                                                                @endif
+                                                                
                                                             </td>
                                                             <td>
-                                                                <span class="user-name">{{ $project->leader->full_name }}</span><br>
-                                                                <span class="user-job">{{ $project->leader->position_company_full }}</span>
+                                                                @if ($project->leader != null)
+                                                                    <span class="user-name mb-1">{{ $project->leader->full_name }}</span><br>
+                                                                    <span class="user-job">{{ $project->leader->position_company_full }}</span>
+                                                                @else
+                                                                    <span class="user-name">No se encontró el usuario asignado</span>
+                                                                @endif
                                                             </td>
                                                             <td class="status-task-{{$project->project_board_categories_id}} text-white">{{ $project->category->name }}</td>
                                                             <td>
@@ -221,7 +257,7 @@
                                                     @endforeach
                                                 @else
                                                     <tr class="border-tr b-tr-terminado text-center">
-                                                        <td colspan="5" class="h5">Sin tareas</td>
+                                                        <td colspan="5" class="h5">Sin tareas en terminado</td>
                                                     </tr>
                                                 @endif
                                                 

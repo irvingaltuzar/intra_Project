@@ -24,54 +24,73 @@
                                         <div class="row justify-content-center">
                                             @if(count($birthdays[$key])>0)
                                                 @foreach ($birthdays[$key] as $birthday)
-                                                    @if($birthday->usuario != "eduardo")
-                                                        <div class="card-event">
-                                                            <div class="content-card">
-                                                                <div class="photo">
-                                                                    @if($birthday->photo)
-                                                                        <img onerror="this.src='{{asset('/image/icons/user.svg')}}';" src="{{$birthday->photo_src}}" class="img-fluid person">
+                                                    <div class="card-event" id="link_{{str_replace('.','_',$birthday->usuarioId)}}">
+                                                        <div class="content-card">
+                                                            <div class="photo">
+                                                                @if($birthday->photo)
+                                                                    <img onerror="this.src='{{asset('/image/icons/user.svg')}}';" src="{{$birthday->photo_src}}" class="img-fluid person">
+                                                                @else
+                                                                    @if($birthday->sex=='Masculino')
+                                                                        <img src="{{ asset('image/icons/masculino.svg')}}" class="img-fluid person">
+                                                                    @elseif($birthday->sex=='Femenino')
+                                                                        <img src="{{ asset('image/icons/femenino.svg')}}" class="img-fluid person">
                                                                     @else
-                                                                        @if($birthday->sex=='Masculino')
-                                                                            <img src="{{ asset('image/icons/masculino.svg')}}" class="img-fluid person">
-                                                                        @elseif($birthday->sex=='Femenino')
-                                                                            <img src="{{ asset('image/icons/femenino.svg')}}" class="img-fluid person">
-                                                                        @else
-                                                                            <img src="{{ asset('image/icons/general.svg')}}" class="img-fluid person">
-                                                                        @endif
+                                                                        <img src="{{ asset('image/icons/general.svg')}}" class="img-fluid person">
                                                                     @endif
+                                                                @endif
 
-                                                                    @php
-                                                                        //Se incrementan 3 días a la fecha actual para que puedan hacer felicitaciones adelantadas
-                                                                        $start_date_current = date('Y-m-d',strtotime(date('d-m-Y').'-5 days'));
-                                                                        $end_date_current = date('Y-m-d',strtotime(date('d-m-Y').'3 days'));
-                                                                        $aux_birth = date('Y').'-'.strftime("%m", strtotime($birthday->birth)).'-'.strftime("%d", strtotime($birthday->birth))
-                                                                    @endphp
-                                                                    {{-- @if((date('d') == strftime("%d", strtotime($birthday->birth))) ||
-                                                                        (strftime("%d",strtotime($birthday->birth."+ 5 days"))) >= date('d') &&
-                                                                        strftime("%d",strtotime(date('d-m-Y')."- 5 days")) <= strftime("%d", strtotime($birthday->birth)) &&
-                                                                        strftime("%d", strtotime($birthday->birth)) <= $new_date_current) --}}
-                                                                    <a class="" role='button'>
-                                                                        @php
-                                                                            $publication_birthday = null;
-                                                                            if(sizeof($birthday->publication_birthday) > 0){
-                                                                                $publication_birthday = $birthday->publication_birthday[0]->id;
-                                                                            }
-                                                                        @endphp
-                                                                        <input type="hidden" id="birthday_{{str_replace('.','_',$birthday->usuario)}}" data-name="{{$birthday->name}} {{$birthday->last_name}}" data-birthday="{{$birthday->birth}}" data-usuario="{{str_replace('.','_',$birthday->usuario)}}" data-publication="{{$publication_birthday}}">
-                                                                        <img src="{{ asset('image/icons/comments.svg')}}" class="img-fluid comments-icon add-comments" data-usuario="{{str_replace('.','_',$birthday->usuario)}}"  data-type_publication="birthday">
-                                                                    </a>
+                                                                @php
+                                                                    //Se incrementan 3 días a la fecha actual para que puedan hacer felicitaciones adelantadas
+                                                                    $start_date_current = date('Y-m-d',strtotime(date('d-m-Y').'-5 days'));
+                                                                    $end_date_current = date('Y-m-d',strtotime(date('d-m-Y').'3 days'));
+                                                                    $aux_birth = date('Y').'-'.strftime("%m", strtotime($birthday->birth)).'-'.strftime("%d", strtotime($birthday->birth))
+                                                                @endphp
+                                                                {{-- @if((date('d') == strftime("%d", strtotime($birthday->birth))) ||
+                                                                    (strftime("%d",strtotime($birthday->birth."+ 5 days"))) >= date('d') &&
+                                                                    strftime("%d",strtotime(date('d-m-Y')."- 5 days")) <= strftime("%d", strtotime($birthday->birth)) &&
+                                                                    strftime("%d", strtotime($birthday->birth)) <= $new_date_current) --}}
+                                                                
+                                                            </div>
+                                                            <div class="d-inline-flex mb-2">
+                                                                @php
+                                                                $publication_birthday = null;
+                                                                    if($birthday->publication_birthday != null){
+                                                                        $publication_birthday = $birthday->publication_birthday->id;
+                                                                    }
+                                                                @endphp
+                                                                
+                                                                {{-- <div class="d-flex" role='button' data-bs-toggle="tooltip" data-bs-placement="bottom" title="Felicitaciones">
+                                                                    <img src="{{ asset('image/icons/cake.svg')}}" class="img-fluid comments-icon view-reactions" data-usuario="{{str_replace('.','_',$birthday->usuario)}}" data-publication="{{$publication_birthday != null ? $publication_birthday : 0}}">
                                                                 </div>
-                                                                <div class="name">{{$birthday->name}} <br> {{$birthday->last_name}}</div>
-                                                                <div class="job">{{$birthday->position_company_full}} / {{$birthday->deparment}} </div>
-                                                                <div class="date">{{strftime("%d %B", strtotime($birthday->birth))}}</div>
-                                                                <div class="development"  >
-                                                                    @if($birthday->photo_location)
-                                                                        <img src="{{$url}}/storage/{{$birthday->photo_location}}" class="img-fluid w-50 h-auto">
-                                                                    @endif
+                                                                <div class="d-flex" role='button' data-bs-toggle="tooltip" data-bs-placement="bottom" title="Comentarios">
+                                                                    <input type="hidden" id="birthday_{{str_replace('.','_',$birthday->usuario)}}" data-name="{{$birthday->name}} {{$birthday->last_name}}" data-birthday="{{$birthday->birth}}" data-usuario="{{str_replace('.','_',$birthday->usuario)}}" data-publication="{{$publication_birthday}}">
+                                                                    <img src="{{ asset('image/icons/comments.svg')}}" class="img-fluid comments-icon add-comments" data-usuario="{{str_replace('.','_',$birthday->usuario)}}"  data-type_publication="birthday">
+                                                                </div> --}}
+
+                                                                <div class="d-flex" role='button' data-bs-toggle="tooltip" data-bs-placement="bottom" title="Felicitaciones">
+                                                                    {{-- <div class="button-dmi-blue" onclick="viewReactionsModalBirthday({{$publication_birthday != null ? $publication_birthday : 0}},'cumpleaños')"> --}}
+                                                                    <div class="button-dmi-blue" onclick="viewReactionsModalBirthday({{$publication_birthday != null ? $publication_birthday : 0}},'cumpleaños',{{$birthday->usuarioId}},'{{$birthday->usuario}}','{{$birthday->birth}}')">
+                                                                        <i class="fas fa-birthday-cake"></i>
+                                                                    </div>
                                                                 </div>
+                                                                <div class="d-flex" role='button' data-bs-toggle="tooltip" data-bs-placement="bottom" title="Comentarios">
+                                                                    <input type="hidden" id="birthday_{{str_replace('.','_',$birthday->usuario)}}" data-name="{{$birthday->name}} {{$birthday->last_name}}" data-birthday="{{$birthday->birth}}" data-usuario="{{str_replace('.','_',$birthday->usuario)}}" data-publication="{{$publication_birthday}}">
+                                                                    <div class="button-dmi-blue add-comments" data-usuario="{{str_replace('.','_',$birthday->usuario)}}"  data-type_publication="birthday">
+                                                                        <i class="far fa-comment-alt"></i>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <div class="name" >{{$birthday->name}} <br> {{$birthday->last_name}}</div>
+                                                            <div class="job">{{$birthday->position_company_full}} / {{$birthday->deparment}} </div>
+                                                            <div class="date">{{strftime("%d %B", strtotime($birthday->birth))}}</div>
+                                                            <div class="development"  >
+                                                                @if($birthday->photo_location)
+                                                                    <img src="{{$url}}/storage/{{$birthday->photo_location}}" class="img-fluid w-50 h-auto">
+                                                                @endif
                                                             </div>
                                                         </div>
-                                                    @endif
+                                                    </div>
                                                 @endforeach
                                             @else
                                                 <div class="empty">No se encontraron cumpleaños para este mes</div>

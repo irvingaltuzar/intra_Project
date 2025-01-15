@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['*','http://intranet.dmi.local:8006','http://192.168.3.170:8006'],
 
     'allowed_origins_patterns' => [],
 

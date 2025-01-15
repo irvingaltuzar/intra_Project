@@ -2,7 +2,7 @@
     <div class="card-header" role="tab" id="heading-induccion_intelisis">
         <a data-bs-toggle="collapse" href="#collapse-induccion_intelisis" aria-expanded="true" aria-controls="collapse-induccion_intelisis">
             <h5 class="mb-0">
-                INDUCCIÓN INTELISIS
+                VIDEOS CAPACITACIÓN
             </h5>
         </a>
     </div>
@@ -12,22 +12,31 @@
             <div class="container-induccion_intelisis-training">
                 <div id="induccion_intelisis-training" class="induccion_intelisis-events">
 
-                    <div class="row pt-5 m-auto">
-                        @foreach ($induccion_intelisis as $item)
+                    <div class="row pt-5 m-auto justify-content-center">
+                        <div class="col-md-8 col-sm-12">
+                            <a href="{{ $link_sharepoint->value }}" target="_blank">
+                                <img class="img-fluid card-img" src="{{ asset('image/banner_capacitacion.jpg') }}" width="100%" alt="">
+                            </a>
+                        </div>
+                        {{-- @foreach ($induccion_intelisis as $item)
                             <div class="col-md-4 col-lg-4 pb-3">
                                 <div class="card card-custom bg-white border-white border-0">
                                     <div class="card-custom-img">
                                         <video class="w-100 border public-video"  src="http://192.168.3.170:8000/storage/Publico/{{$item['archivo']}}" alt="">
                                     </div>
                                     <div class="card-body m-4" style="overflow-y: auto">
-                                        <h5 class="card-title"><strong>{{$item['titulo']}}</strong></h5>
+                                        <h5 class="card-title mt-5"><strong>{{$item['titulo']}}</strong></h5>
                                     </div>
                                     <div class="card-footer text-center" style="background: inherit; border-color: inherit;">
                                         <a target="_black" onclick="showVideo({{$item['documentodId']}})" class="special-buttom">Ver</a>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @endforeach --}}
+                    </div>
+                    <div class="row">
+                        <br>
+                        <br>
                     </div>
 
                 </div>

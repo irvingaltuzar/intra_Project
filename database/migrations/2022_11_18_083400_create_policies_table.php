@@ -17,6 +17,8 @@ class CreatePoliciesTable extends Migration
             $table->integer('id')->autoIncrement();
             $table->string('title',255)->nullable()->index();
             $table->string('photo',255)->nullable();
+            $table->string('video',255)->nullable();
+            $table->string('link',500)->nullable();
             $table->text('description')->nullable();
             $table->date('expiration_date')->nullable()->index();
             $table->timestamps();

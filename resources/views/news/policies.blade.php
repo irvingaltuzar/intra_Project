@@ -16,6 +16,15 @@
                                 <span class="date">{{ucwords(\Carbon\Carbon::parse($policy->created_at)->translatedFormat('j F')) }}</span>
                             </div>
                             <article class="news">
+                                @if($policy->link != null)
+                                    <a href="{{$policy->link}}" target="_blank"><i class="fa fa-link"></i> {{$policy->link}}</a>
+                                    <br>
+                                @endif
+                                @if($policy->video != null)
+                                    <a style="cursor: pointer;color: #0d6efd;text-decoration: underline;" onclick="showVideoModal('{{$policy->title}}','{{$policy->video}}')"><i class="fas fa-video"></i> Da click aquí para visualizar el vídeo</a>
+                                    <br>
+                                @endif
+                                <br>
                                 <img src="{{asset($policy->photo)}}" class="image-news">
                                 @if(sizeof($policy->files) > 0)
                                     <br>

@@ -71,7 +71,14 @@
                                 </div>
                             </div>
                             <div class="row mb-2">
-                                <div class="col-sm-12 col-md-12">
+                                <div class="form-floating col-sm-12 col-md-12">
+                                    <input type="text" class="form-control" id="txt_link"
+                                        placeholder="Link" required>
+                                    <label for="txt_link">Link</label>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-12 col-md-6">
                                     <div class="input-file" id="input-file_file_photo">
                                         <label for="" class="label-file">Elige una Imagen <span
                                                 class="input-required">*</span></label>
@@ -80,6 +87,15 @@
                                         <span class="name-file" id="name_file_photo"></span>
                                         <input class="form-control d-none" type="file" accept="image/png,image/jpeg"
                                             id="file_photo" placeholder="Imagen" onchange="uploadImage(this)" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="input-file" id="input-file_file_video">
+                                        <label for="" class="label-file">Elige un video</label>
+                                        <span class="icon-file" data-input="file_video" data-file_type="image"><i class="fas fa-video"></i></span>
+                                        <span class="name-file" id="name_file_video"></span>
+                                        <input class="form-control d-none" type="file" accept="video/mp4"
+                                            id="file_video" placeholder="Imagen" onchange="uploadImage(this,'video')" required>
                                     </div>
                                 </div>
                             </div>

@@ -84,6 +84,22 @@
 
                             <div class="row mt-4">
                                 <div class="col-sm-12 col-md-12 text-center">
+                                    <span class="subtitle-section-1"><i class="far fa-bell m-2"></i> Acciones</span>
+                                </div>
+                            </div>
+                            <div class="row mt-2 mb-3 justify-content-center">
+                                <div class="form-floating col-sm-12 col-md-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="checkbox_send_email">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                          Enviar correo
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-sm-12 col-md-12 text-center">
                                     <span class="subtitle-section-1"><i class="fas fa-file-alt m-2"></i>Archivos</span>
                                     &nbsp;
                                     <span class="btn-plus-file" onclick="addFiles()"><i class="fas fa-plus"></i></span>

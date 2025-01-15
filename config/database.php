@@ -90,7 +90,7 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
         ],
-
+        
 		'intranet_sqlsrv' => [
             'driver' => 'sqlsrv',
             'host' => env('DB_HOST', 'localhost'),
@@ -104,6 +104,7 @@ return [
 			'TrustServerCertificate' => true,
             'prefix_indexes' => true,
 			'pooling'  => false,
+            'timezone'  => 'America/Mexico_City',
         ],
 
     ],

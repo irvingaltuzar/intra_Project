@@ -79,7 +79,7 @@ class LoginController extends Controller
         try {
 
             if(ldap_bind($conectado_LDAP,$username ."@".  $user_format, $password)){
-
+                //$username="fatima.castellanos";
                 if (Auth::attempt(['usuario' =>$username , 'password' => 'OupQrqJT'])){
 
                     $this->TempSession->addUserTempSession($credentials);
@@ -195,12 +195,18 @@ class LoginController extends Controller
 
 
     public function logout(){
-
         $ruta_dinamica = "/login";
         if(isset(request()->login_admin) && request()->login_admin == true){
             setcookie("login_admin", true,time()+3600);
         }else{
             setcookie('login_admin',0, time() - 3600);
+            // Obtener todas las cookies actualmente establecidas
+            $cookies = $_COOKIE;
+
+            // Iterar sobre cada cookie y establecer su fecha de expiración en el pasado
+            foreach ($cookies as $nombre => $valor) {
+                setcookie($nombre, '', time() - 3600);
+            }
 
         }
 

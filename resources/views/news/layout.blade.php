@@ -98,6 +98,9 @@
 
         }else if(params.get("section") == 'pane-policies'){
             document.querySelector("#tab-policies").click()
+
+        }else if(params.get("section") == 'pane-commemorative-dates'){
+            document.querySelector("#tab-commemorative-dates").click()
         }
 
     </script>

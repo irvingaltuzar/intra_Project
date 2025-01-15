@@ -9,14 +9,20 @@ use App\Models\Project_Dmi;
 use App\Models\Project_Dmi_Item;
 use App\Models\ConmmemorativeDate;
 use App\Models\InternalPosting;
-use App\Models\Poll;
+use App\Models\Poll; 
 use App\Models\AreaNotice;
 use App\Models\Policy;
 use App\Models\FoundationCapsule;
+use App\Models\Promotion;
 use Carbon\Carbon;
 use App\Models\Communique;
 use App\Repositories\GeneralFunctionsRepository;
 use GuzzleHttp\Client;
+use App\Http\Controllers\BenefitController;
+use Illuminate\Support\Facades\DB;
+use App\Models\BirthCollaborator;
+
+
 
 class HomeController extends Controller
 {
@@ -36,8 +42,43 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
+    public function index(){
+        
+        //Comunicados recientes y activos
+        $communiques = $this->getRecentCommuniques();
+
+        //Cumpleaños
+        $week_birthday= $this->getWeekBirthday();
+
+        // Beneficios 
+        $benefits = $this->getBenefits();
+
+        // Se obtienen las publicaciones de la sección de Colaboradores
+        $publication_collaborators = $this->publicationCollaborators();
+        //return $publication_collaborators;
+
+         /* Start - Auditoria */
+            $params=[
+                "sub_seccion_id" =>23,
+                "ip" => $this->GeneralFunctionsRepository->getIp(),
+                "event" =>(new \ReflectionClass($this))->getShortName()." => ". __FUNCTION__,
+                "comment" => "Inicio",
+            ];
+            $this->GeneralFunctionsRepository->addAudit($params);
+        /* End - Auditoria */
+        
+        $api_key_freshservices= env('FRESHSERVICES_API_KEY');
+
+        return view('home',["communiques"=>$communiques,
+                            "birthday_boys"=>$week_birthday,
+                            "api_key_freshservices" => $api_key_freshservices,
+                            "benefits" => $benefits,
+                            "publication_collaborators" => $publication_collaborators,
+                        ]);
+    }
+
+    public function getRecentCommuniques(){
+
         $publications = $this->getPublicationsAll();
         $temp_publications=[];
         $modules=['communique','conmmemorative_date','internal_posting','poll','area_notice','policy','foundation_capsules'];
@@ -148,20 +189,52 @@ class HomeController extends Controller
         $communiques= $communiques->concat($temp_publications['policy']);
         $communiques= $communiques->concat($temp_publications['foundation_capsules']);
 
-        /* Start - Auditoria */
-            $params=[
-                "sub_seccion_id" =>23,
-                "ip" => $this->GeneralFunctionsRepository->getIp(),
-                "event" =>(new \ReflectionClass($this))->getShortName()." => ". __FUNCTION__,
-                "comment" => "Inicio",
-            ];
-            $this->GeneralFunctionsRepository->addAudit($params);
-        /* End - Auditoria */
-
-        return view('home',["communiques"=>$communiques]);
+        return $communiques;
     }
 
+    public function getWeekBirthday(){
+        $date = Carbon::now();
+        $birthday_boys=[];
+        for($cont=0; $cont < 7; $cont++){
+        //for($cont=0; $cont < 1; $cont++){
+            $day = $date->startOfWeek()->addDay($cont)->format('m-d');
+            $birth_day = User::with('publication_birthday')->select('vw_users.*','vw_locations.photo as photo_location')
+            ->join('vw_locations', 'vw_users.location', '=', 'vw_locations.name')
+            ->where('birth','like',"%$day")->get()->toArray();
+            if($birth_day != null){
+                foreach($birth_day as $birth){
+                    $birthday_boys[]=$birth;
+                }
+            }
+        }
 
+        return $birthday_boys;
+
+    }
+
+    public function getBenefits(){
+        $benefitController = new BenefitController();
+
+        $hoy = Carbon::today();
+
+        $temp_request = new Request();
+        $temp_request->setMethod('GET');
+        $temp_request->query->add(['limit' =>100,
+                                    'expiration_date' => $hoy]);
+        $benefits = $benefitController->benefitsListPublic($temp_request);
+
+        return $benefits;
+
+    }
+
+    public function newStaff(){
+        $year = Carbon::now()->format('Y');
+        $month = Carbon::now()->format('m');
+
+        return User::with(['commanding_staff'])->select('vw_users.*','vw_locations.photo as photo_location')
+        ->join('vw_locations', 'vw_users.location', '=', 'vw_locations.name')
+        ->whereMonth('vw_users.antiquity_date',$month)->whereYear('vw_users.antiquity_date',$year)->orderByRaw('DAY(vw_users.antiquity_date) desc')->get();
+    }
 
     function getPublicationsAll(){
         $order_by = isset($request->order_by) ? $request->order_by : 'desc';
@@ -226,7 +299,6 @@ class HomeController extends Controller
                                         ->whereNull('area_notices.deleted_at')
                                         ->whereNull('bucket_locations.deleted_at')
                                         ->where('bucket_locations.sub_seccion_id',11)
-                                        ->whereDate("area_notices.created_at",">=",$start_sub_week)
                                         ->whereDate('area_notices.expiration_date', '>=', $hoy)
                                         ->orderBy('area_notices.created_at','desc')
                                         ->select('area_notices.*')
@@ -260,6 +332,96 @@ class HomeController extends Controller
                                         ->get();
 
         return $publications;
+    }
+
+    public function publicationCollaborators(){
+        $promotions = $this->Promotions();
+        $new_staff = $this->new_staff();
+        $anniversaries = $this->anniversaries();
+        $birthday = $this->birthday();
+
+        $publication_collaborators=collect();
+        $publication_collaborators= $publication_collaborators->concat($promotions);
+        $publication_collaborators= $publication_collaborators->concat($new_staff);
+        $publication_collaborators= $publication_collaborators->concat($anniversaries);
+        $publication_collaborators= $publication_collaborators->concat($birthday);
+
+        return $publication_collaborators;
+    }
+
+    public function Promotions(){
+        $hoy = Carbon::today()->format("Y-m-d");
+        $startDate = Carbon::now()->subDay(10)->format("Y-m-d");
+
+        $promotions =  Promotion::with('user', 'user.locations')
+                                ->where('expiration_date','>=',$hoy)
+                                ->where('created_at','>=',$startDate)
+                                ->orderByRaw('DAY(created_at) desc')
+                                ->select("promotions.*",DB::raw("'publication_promotion' as type_publication"))
+                                ->get();
+        return $promotions;
+    }
+
+    public function new_staff(){
+        $startDate = Carbon::now()->subDay(10)->format("Y-m-d");
+
+        $new_staffs= User::with('commanding_staff')->select('vw_users.*','vw_locations.photo as photo_location')
+        ->join('vw_locations', 'vw_users.location', '=', 'vw_locations.name')
+        ->where('vw_users.antiquity_date','>=',$startDate)->orderByRaw('DAY(vw_users.antiquity_date) desc')
+        ->select("vw_users.*",DB::raw("'new_staff' as type_publication"))
+        ->get();
+
+        $aux_new_staffs=[];
+        foreach($new_staffs as $new_staff){
+            $file_path = $new_staff->photo;
+            $pattern = '/\/i';
+            $short_path = preg_replace("#([\\\\/]+)#", '/', substr($file_path, 29));
+            $new_staff->photo_src= env('APP_FILES_URL') . $short_path;
+            
+            $aux_new_staffs[]=$new_staff;
+        }
+
+        return $aux_new_staffs;
+    }
+
+    protected function anniversaries(){
+        $year = Carbon::now()->format('Y');
+        $date = Carbon::now()->subDay(5);
+        $promotions=[];
+
+        for($cont=0; $cont <5; $cont++){
+            $day = $date->addDay(1)->format('m-d');
+            $promotion = User::with('publication_birthday')->select('vw_users.*','vw_locations.photo as photo_location')
+            ->join('vw_locations', 'vw_users.location', '=', 'vw_locations.name')
+            ->where('antiquity_date','like',"%$day%")
+            ->whereYear('antiquity_date','<',$year)
+            ->select("vw_users.*",DB::raw("'anniversaries' as type_publication"))
+            ->get();
+            if($promotion != null){
+                foreach($promotion as $promo){
+                    $file_path = $promo->photo;
+                    $pattern = '/\/i';
+                    $short_path = preg_replace("#([\\\\/]+)#", '/', substr($file_path, 29));
+                    $promo->photo_src= env('APP_FILES_URL') . $short_path;
+
+                    $promotions[]=$promo;
+                }
+            }
+        }
+        return $promotions;
+
+    }
+
+    protected function birthday(){
+        $startDate = Carbon::now()->subDay(10)->format("Y-m-d");
+
+        $nacimientos = BirthCollaborator::with('templanteCollaborator', 'user', 'user.locations')
+                                ->where('created_at','>=',$startDate)
+                                ->orderByRaw('DAY(birth) desc')
+                                ->select("birth_collaborators.*",DB::raw("'birthday' as type_publication"))
+                                ->get();
+        //dd($nacimientos);
+        return $nacimientos;
     }
 
     
@@ -322,7 +484,7 @@ class HomeController extends Controller
             $this->GeneralFunctionsRepository->addAudit($params);
         /* End - Auditoria */
 
-        $days=["Dom","Lun","Mar","Mie","Jue","Vie","Sáb"];
+        $days=["Dom","Lun","Mar","Mie","Jue","Vie","Sáb","Dom"];
 
         $horario=User::with(['horary'])->where('usuario',Auth::user()->usuario)->where('status','alta')->first();
         $jefe=User::where('plaza_id',Auth::user()->top_plaza_id)->where('status','alta')->first();

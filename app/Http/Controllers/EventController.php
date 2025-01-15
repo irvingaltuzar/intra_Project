@@ -135,6 +135,7 @@ class EventController extends Controller
             $fileName = $fileName.$extension;
             $path = '/events/'.$fileName;
             \Storage::disk('public')->put($path,\File::get($file));
+            $this->GeneralFunctionsRepository->uploadImgServerGrupoDMI($request->file('photo'),$fileName);
             $path = "storage".$path;
         }
 
@@ -248,6 +249,10 @@ class EventController extends Controller
         ];
         $this->GeneralFunctionsRepository->addAudit($params);
         /* End - Auditoria */
+        
+        if($request->check_send_email == 1){
+            $this->sendEmails($event->id,$this->sub_seccion_id);
+        }
 
         return ['success'=> 1, 'data'=>$event];
     }
@@ -471,6 +476,40 @@ class EventController extends Controller
 
         }else{
             return ['success' => 0, 'message' => "No es valido el registro enviado."];
+        }
+
+    }
+
+    public function sendEmails($_record_id,$_sub_seccion_id){
+
+        $record = Event::find($_record_id);
+
+        if($record != null){
+            $photo = null;
+            $users_email = $this->GeneralFunctionsRepository->getUsersByLocation($_record_id,$_sub_seccion_id);
+            if($record->photo != null){
+                $cover_img_name = $this->GeneralFunctionsRepository->getCoverNameImg($record->photo);
+                $photo="https://www.grupodmi.com.mx/intranet/img/comunicados/$cover_img_name";
+            }
+            
+
+            $mail_data = [
+                'sub_seccion' => "event",
+                'recipient_emails' =>$users_email,
+                'subject' => "Eventos - $record->title",
+                'link' => url('events'),
+                'title' => "Eventos - $record->title",
+                'description' => $record->description,
+                'link_data' => null,
+                'photo' =>$photo,
+            ];
+
+            $this->GeneralFunctionsRepository->sendEmails($mail_data);
+            
+            //Se envia la notificación del comunicado
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id,$_sub_seccion_id);
+            
+
         }
 
     }

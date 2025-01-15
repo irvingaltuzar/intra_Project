@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AreaNotice;
 use App\Models\FoundationCapsule;
+use App\Models\Policy;
 use App\Models\BucketLocation;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\GeneralFunctionsRepository;
@@ -31,6 +32,10 @@ class MediaFunctionsController extends Controller
 
         }else if($_sub_seccion == 'foundation_capsule'){
             $record = FoundationCapsule::find($_record_id);
+            return view('componentes_generales.multimediaVideo')->with(compact('record'));
+
+        }else if($_sub_seccion == 'policy'){
+            $record = Policy::find($_record_id);
             return view('componentes_generales.multimediaVideo')->with(compact('record'));
 
         }else{

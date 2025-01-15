@@ -1,0 +1,46 @@
+.publ-no-comments{
+    color:#6c757d;
+}
+
+.comment-photo-user{
+    padding: 0.25rem;
+    background-color: #f8fafc;
+    border: 1px solid #dee2e6;
+    border-radius: 50%;
+    height: 50px;
+}
+
+.comment-body{
+    background: linear-gradient(90deg, #00aeef, #00aeef2b);
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+.comment-full-name{
+    font-weight: 600;
+}
+.comment-created-at{
+    font-size: 12px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.comment-tr-photo{
+    width: 8%;
+    vertical-align: baseline;
+}
+.comment-td-text{
+    background: #e4edff;
+    border-radius: 15px;
+    padding: 2px 1px 2px 10px;
+}
+
+.comment-icon{
+    transform: rotate(45deg);
+}
+
+.comment-publishing{
+    font-style: italic;
+    color: #52575c;
+}

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\Rol;
+use App\Repositories\GeneralFunctionsRepository;
 
 class Admin
 {
@@ -26,6 +27,10 @@ class Admin
             if(Session::has('permission')){
                 $permission = Session::get('permission.permissions');
                 if(sizeof($permission) > 0){
+                    // Revisamos si el usuario esta asociado a un correo en especifico para enviar avisos de area y lo cargamos el departamento a la session
+                    $generalFunctionsRepository = new GeneralFunctionsRepository();
+                    $department = $generalFunctionsRepository->isAssignedDepartment(Auth::user()->usuario);
+                    Session(['department_assigned_mail' => $department]);
                     return $next($request);
                 }else{
                     return redirect()->route('home');

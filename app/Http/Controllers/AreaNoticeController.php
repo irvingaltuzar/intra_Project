@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Image;
 use App\Models\BucketFile;
 use App\Models\File;
+use App\Models\ValidationMetadata;
 
 
 
@@ -71,15 +72,45 @@ class AreaNoticeController extends Controller
         $search = isset($request->search) ? json_decode(json_encode($request->search),false) : '';
         $expiration_date = (isset($request->expiration_date) && $request->expiration_date != null) ? $request->expiration_date : '';
         $areaNotice_list= [];
-
+        
         if(isset($search->isSearch) && strlen($search->text) > 0){
             $areaNotice_list = AreaNotice::whereRaw("(title like '%$search->text%'
                 or description like '%$search->text%'
-                or expiration_date like '%$search->text%')")
-            ->orderBy('expiration_date',$order_by)->Paginate($limit);
+                or expiration_date like '%$search->text%')");
+
+                if(session('department_assigned_mail') != null){
+                    $areaNotice_list = $areaNotice_list->where('belongs_department',session('department_assigned_mail'));
+                }else{
+                    $flag_validation_all_communication = ValidationMetadata::where('key','system_validate_not_view_communications_all_area')->first();
+                    if($flag_validation_all_communication->value == 1){
+                        $areaNotice_list = $areaNotice_list->whereNull('belongs_department');
+                    }else{
+                        $areaNotice_list = $areaNotice_list->whereNotNull('belongs_department');
+                    }
+                }
+
+            $areaNotice_list = $areaNotice_list->orderBy('expiration_date',$order_by)->Paginate($limit);
         }else{
-            $areaNotice_list = AreaNotice::orderBy('expiration_date',$order_by)
-            ->Paginate($limit);
+
+            if(session('department_assigned_mail') != null){
+                $areaNotice_list = AreaNotice::where('belongs_department',session('department_assigned_mail'))
+                                                ->orderBy('expiration_date',$order_by)
+                                                ->Paginate($limit);
+            }else{
+                $flag_validation_all_communication = ValidationMetadata::where('key','system_validate_not_view_communications_all_area')->first();
+
+                if($flag_validation_all_communication->value == 1){
+                    $areaNotice_list = AreaNotice::whereNull('belongs_department')
+                                                ->orderBy('expiration_date',$order_by)
+                                                ->Paginate($limit);
+                }else{
+                    $areaNotice_list = AreaNotice::orderBy('expiration_date',$order_by)
+                                                ->Paginate($limit);
+                }
+
+                
+            }
+            
         }
 
         $areaNotice_list->setPath('/admin/news/area-notice-list');
@@ -139,6 +170,7 @@ class AreaNoticeController extends Controller
         $newRecord->description = $request->description;
         $newRecord->link = $request->link;
         $newRecord->expiration_date = $request->expiration_date;
+        $newRecord->belongs_department = session('department_assigned_mail');
         $newRecord->save();
 
         //Se almacenan los id de las ubicaciones creadas
@@ -456,6 +488,8 @@ class AreaNoticeController extends Controller
             ];
 
             $this->GeneralFunctionsRepository->sendEmails($mail_data);
+            //Se envia la notificación del comunicado
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id,$_sub_seccion_id);
         }
 
     }
@@ -481,6 +515,10 @@ class AreaNoticeController extends Controller
             ];
 
             $this->GeneralFunctionsRepository->sendEmails($mail_data);
+
+            //Se envia la notificación del comunicado
+            $mail_data['title'] = $mail_data['subject'];
+            $this->GeneralFunctionsRepository->preparingNotificationCommunique($mail_data,$_record_id,$this->sub_seccion_id);
 
             return ['success' => 1, 'message' => "Recordatorio enviado con éxito"];
         }

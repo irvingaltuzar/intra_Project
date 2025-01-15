@@ -34,6 +34,7 @@ use App\Http\Controllers\ProjectBoardController;
 use App\Repositories\GeneralFunctionsRepository;
 use App\Models\AreaNotice;
 use App\Models\User;
+use App\Http\Controllers\ReactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +95,8 @@ Route::group(['middleware' => ['auth']],function(){
     Route::get('sistemas-administrativos',[TempSessionController::class,'redirectAlfa'])->name('sistemasAdministrativos');
     Route::get('multimedia/{submodulo}/{id}',[MediaFunctionsController::class,'multimediaVideo']);
     Route::get('get-last-check',[GeneralFunctionsRepository::class,'getLastCkeckFromSistemasAdministrativos']);
+    Route::get('get-notifications',[GeneralFunctionsRepository::class,'getNotifications']);
+    Route::post('view-notifications',[GeneralFunctionsRepository::class,'viewNotifications']);
     /* **************** Rutas Genericas **************** */
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -167,13 +170,17 @@ Route::group(['middleware' => ['auth']],function(){
         Route::get('/promotions',[CollaboratorController::class,'promotionList']);
     });
 
-    /* Publicationes y comentarios */
+    /* Publicationes - comentarios - reacciones */
     Route::prefix('/publications')->group(function(){
         Route::get('/list',[PublicationController::class,'listPublications']);
         Route::post('/add',[PublicationController::class,'addPublication']);
         Route::get('/show/{id}',[PublicationController::class,'show']);
+        
         Route::get('/list/comments',[CommentController::class,'get_list_comments']);
         Route::post('/add/comments',[CommentController::class,'add_comments']);
+        
+        Route::post('/reactions/add',[ReactionController::class,'add_reaction']);
+        Route::get('/reactions/list',[ReactionController::class,'getListReactions']);
     });
 
     /* Project Board */
@@ -338,6 +345,10 @@ Route::group(['middleware' => ['admin']],function(){
             Route::get('/permission-delete/{id}',[PermissionController::class,'permissionDelete']);
             Route::get('/permission-is-user-exist',[PermissionController::class,'permissionIsUserExist']);
 
+            //Generador de pass
+            Route::get('/generate-pass-mailers/{pass}',[GeneralFunctionsRepository::class,'encryptPasswordCatMailers']);
+            Route::get('/decrypt-pass-mailers/{pass}',[GeneralFunctionsRepository::class,'decryptPasswordCatMailers']);
+
         });
 
 
@@ -352,6 +363,7 @@ Route::prefix('locations')->group(function(){
 });
 Route::prefix('users')->group(function(){
     Route::get('/all',[UserController::class,'all']);
+    Route::get('/promotion-all',[UserController::class,'promotionAll']);
 });
 
 Route::get('type_events/all',[EventController::class,'typeEventsAll']);

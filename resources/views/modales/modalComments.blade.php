@@ -18,7 +18,7 @@
                         </button>
                     </div>
                     <div class="col-sm-2 col-md-2">
-                        <button type="button" class="btn btn-primary" onclick="add_comments()">
+                        <button type="button" class="btn btn-primary"  id="btn_modal_comments"  onclick="add_comments()">
                             Comentar
                         </button>
                     </div>

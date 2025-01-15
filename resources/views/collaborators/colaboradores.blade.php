@@ -74,21 +74,40 @@
     </div>
 
     @include('modales.modalComments')
+    @include('modales.modalReactions')
 @endsection
 
 @section('script_footer')
     <script src="{{asset('js/dmi/collaborators.js')}}"></script>
+    <script src="{{asset('js/dmi/reactions.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <script>
-        var _hash = window.location.hash;
+        /* var _hash = window.location.hash;
         if(_hash == "#pane-condolences"){
             document.querySelector("#tab-condolences").click()
-        }
+        } */
 
         var url = new URL(window.location.href);
         var params = new URLSearchParams(url.search);
         params.get("section");
         if(params.get("section") == 'pane-condolences'){
             document.querySelector("#tab-condolences").click()
+            
+        }else if(params.get("section") == 'pane-birthday'){
+            document.querySelector("#tab-birthday").click()
+
+        }else if(params.get("section") == 'pane-promotions'){
+            document.querySelector("#tab-promotions").click()
+
+        }else if(params.get("section") == 'pane-new-staff'){
+            document.querySelector("#tab-new-staff").click()
+
+        }else if(params.get("section") == 'pane-anniversaries'){
+            document.querySelector("#tab-anniversaries").click()
+
+        }else if(params.get("section") == 'pane-births'){
+            document.querySelector("#tab-births").click()
+
         }
     </script>
 
